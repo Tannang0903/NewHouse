@@ -3,7 +3,7 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
-import logo from '/src/assets/image/logo.png'
+import logo from '@/assets/image/logo.png'
 
 const Footer = () => {
   return (

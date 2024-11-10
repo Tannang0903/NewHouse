@@ -7,7 +7,7 @@ interface Props {
   construction: Construction
 }
 
-const SliderItem = ({ construction }: Props) => {
+const CardItem = ({ construction }: Props) => {
   const router = useRouter()
 
   const onShowDetail = () => {
@@ -54,4 +54,4 @@ const SliderItem = ({ construction }: Props) => {
   )
 }
 
-export default SliderItem
+export default CardItem

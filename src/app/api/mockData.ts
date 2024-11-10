@@ -1,0 +1,156 @@
+export const designWorks = [
+  {
+    id: '1',
+    name: 'UI/UX Review Check',
+    introduction: 'UI/UX Review Check',
+    description: 'UI/UX Review Check',
+    imageUrl: 'https://sbshouse.vn/wp-content/uploads/2024/11/179HDTK2024-31.webp',
+  },
+  {
+    id: '2',
+    name: 'UI/UX Review Check',
+    introduction: 'UI/UX Review Check',
+    description: 'UI/UX Review Check',
+    imageUrl: 'https://sbshouse.vn/wp-content/uploads/2024/11/179HDTK2024-31.webp',
+  },
+  {
+    id: '3',
+    name: 'UI/UX Review Check',
+    introduction: 'UI/UX Review Check',
+    description: 'UI/UX Review Check',
+    imageUrl: 'https://sbshouse.vn/wp-content/uploads/2024/11/179HDTK2024-31.webp',
+  },
+  {
+    id: '4',
+    name: 'UI/UX Review Check',
+    introduction: 'UI/UX Review Check',
+    description: 'UI/UX Review Check',
+    imageUrl: 'https://sbshouse.vn/wp-content/uploads/2024/11/179HDTK2024-31.webp',
+  },
+  {
+    id: '5',
+    name: 'UI/UX Review Check',
+    introduction: 'UI/UX Review Check',
+    description: 'UI/UX Review Check',
+    imageUrl: 'https://sbshouse.vn/wp-content/uploads/2024/11/179HDTK2024-31.webp',
+  },
+  {
+    id: '6',
+    name: 'UI/UX Review Check',
+    introduction: 'UI/UX Review Check',
+    description: 'UI/UX Review Check',
+    imageUrl: 'https://sbshouse.vn/wp-content/uploads/2024/11/179HDTK2024-31.webp',
+  },
+  {
+    id: '7',
+    name: 'UI/UX Review Check',
+    introduction: 'UI/UX Review Check',
+    description: 'UI/UX Review Check',
+    imageUrl: 'https://sbshouse.vn/wp-content/uploads/2024/11/179HDTK2024-31.webp',
+  },
+  {
+    id: '8',
+    name: 'UI/UX Review Check',
+    introduction: 'UI/UX Review Check',
+    description: 'UI/UX Review Check',
+    imageUrl: 'https://sbshouse.vn/wp-content/uploads/2024/11/179HDTK2024-31.webp',
+  },
+  {
+    id: '9',
+    name: 'UI/UX Review Check',
+    introduction: 'UI/UX Review Check',
+    description: 'UI/UX Review Check',
+    imageUrl: 'https://sbshouse.vn/wp-content/uploads/2024/11/179HDTK2024-31.webp',
+  },
+  {
+    id: '10',
+    name: 'UI/UX Review Check',
+    introduction: 'UI/UX Review Check',
+    description: 'UI/UX Review Check',
+    imageUrl: 'https://sbshouse.vn/wp-content/uploads/2024/11/179HDTK2024-31.webp',
+  },
+]
+
+export const constructionWorks = [
+  {
+    id: '1',
+    name: 'UI/UX Review Check',
+    introduction: 'UI/UX Review Check',
+    description: 'UI/UX Review Check',
+    imageUrl: 'https://sbshouse.vn/wp-content/uploads/2024/11/179HDTK2024-31.webp',
+  },
+  {
+    id: '2',
+    name: 'UI/UX Review Check',
+    introduction: 'UI/UX Review Check',
+    description: 'UI/UX Review Check',
+    imageUrl: 'https://sbshouse.vn/wp-content/uploads/2024/11/179HDTK2024-31.webp',
+  },
+  {
+    id: '3',
+    name: 'UI/UX Review Check',
+    introduction: 'UI/UX Review Check',
+    description: 'UI/UX Review Check',
+    imageUrl: 'https://sbshouse.vn/wp-content/uploads/2024/11/179HDTK2024-31.webp',
+  },
+  {
+    id: '4',
+    name: 'UI/UX Review Check',
+    introduction: 'UI/UX Review Check',
+    description: 'UI/UX Review Check',
+    imageUrl: 'https://sbshouse.vn/wp-content/uploads/2024/11/179HDTK2024-31.webp',
+  },
+  {
+    id: '5',
+    name: 'UI/UX Review Check',
+    introduction: 'UI/UX Review Check',
+    description: 'UI/UX Review Check',
+    imageUrl: 'https://sbshouse.vn/wp-content/uploads/2024/11/179HDTK2024-31.webp',
+  },
+  {
+    id: '6',
+    name: 'UI/UX Review Check',
+    introduction: 'UI/UX Review Check',
+    description: 'UI/UX Review Check',
+    imageUrl: 'https://sbshouse.vn/wp-content/uploads/2024/11/179HDTK2024-31.webp',
+  },
+  {
+    id: '7',
+    name: 'UI/UX Review Check',
+    introduction: 'UI/UX Review Check',
+    description: 'UI/UX Review Check',
+    imageUrl: 'https://sbshouse.vn/wp-content/uploads/2024/11/179HDTK2024-31.webp',
+  },
+  {
+    id: '8',
+    name: 'UI/UX Review Check',
+    introduction: 'UI/UX Review Check',
+    description: 'UI/UX Review Check',
+    imageUrl: 'https://sbshouse.vn/wp-content/uploads/2024/11/179HDTK2024-31.webp',
+  },
+  {
+    id: '9',
+    name: 'UI/UX Review Check',
+    introduction: 'UI/UX Review Check',
+    description: 'UI/UX Review Check',
+    imageUrl: 'https://sbshouse.vn/wp-content/uploads/2024/11/179HDTK2024-31.webp',
+  },
+  {
+    id: '10',
+    name: 'UI/UX Review Check',
+    introduction: 'UI/UX Review Check',
+    description: 'UI/UX Review Check',
+    imageUrl: 'https://sbshouse.vn/wp-content/uploads/2024/11/179HDTK2024-31.webp',
+  },
+]
+
+export const companyImage = [
+  {
+    id: '1',
+    image: 'https://sbshouse.vn/wp-content/uploads/2024/11/179HDTK2024-31.webp',
+  },
+  {
+    id: '2',
+    image: 'https://sbshouse.vn/wp-content/uploads/2024/11/179HDTK2024-31.webp',
+  },
+]
