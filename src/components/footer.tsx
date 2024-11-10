@@ -17,7 +17,7 @@ const Footer = () => {
           </div>
           <div>
             <ul>
-              <li>F</li>
+              <li>H</li>
               <li>Y</li>
               <li>T</li>
             </ul>
