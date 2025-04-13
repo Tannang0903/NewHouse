@@ -20,10 +20,10 @@ const Header = () => {
           </Link>
           <ul className='flex gap-8 list-none text-[14px] h-full items-center '>
             <li className='hover:text-[#cca539] h-full flex items-center'>
-              <Link href='#'>TRANG CHỦ</Link>
+              <Link href='/home'>TRANG CHỦ</Link>
             </li>
             <li className='hover:text-[#cca539] h-full flex items-center'>
-              <Link href='#'>GIỚI THIỆU</Link>
+              <Link href='/introduce'>GIỚI THIỆU</Link>
             </li>
             <li className='group relative hover:text-[#cca539] h-full flex items-center'>
               <Link href='#' className='menu-hover'>

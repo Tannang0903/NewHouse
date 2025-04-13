@@ -3,7 +3,7 @@ import Header from '@/components/header'
 import Footer from '@/components/footer'
 import Container from './component/container'
 
-const LoginPage = () => {
+const HomePage = () => {
   return (
     <div>
       <Header />
@@ -13,4 +13,4 @@ const LoginPage = () => {
   )
 }
 
-export default LoginPage
+export default HomePage
