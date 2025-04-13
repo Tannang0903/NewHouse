@@ -16,79 +16,95 @@ const Header = () => {
 
   return (
     <div>
-      <header className='fixed top-0 w-full bg-[#161616]'>
+      <header className='fixed top-0 w-full bg-[#161616] z-[100]'>
         <div className='h-[80px] max-w-[1200px] w-full flex items-center justify-between m-auto text-white'>
-          <Link href={'#!'}>
+          <Link href={'#'}>
             <Image src={logo} alt='logo-new-house' className='w-[60px] h-[60px] rounded-full' />
           </Link>
-          <ul className='flex gap-8 list-none'>
-            <li className='hover:text-[#cca539]'>
-              <Link href='#!'>TRANG CHỦ</Link>
+          <ul className='flex gap-8 list-none text-[14px] h-full items-center '>
+            <li className='hover:text-[#cca539] h-full flex items-center'>
+              <Link href='#'>TRANG CHỦ</Link>
             </li>
-            <li className='hover:text-[#cca539]'>
-              <Link href='#!'>GIỚI THIỆU</Link>
+            <li className='hover:text-[#cca539] h-full flex items-center'>
+              <Link href='#'>GIỚI THIỆU</Link>
             </li>
-            <li className='group relative hover:text-[#cca539]'>
-              <Link href='#!' className='menu-hover'>
+            <li className='group relative hover:text-[#cca539] h-full flex items-center'>
+              <Link href='#' className='menu-hover'>
                 DỊCH VỤ
               </Link>
-              <ul className='invisible absolute left-[50%] z-50 flex flex-col bg-[#111] text-white shadow-xl group-hover:visible w-[240px] translate-x-[-50%] '>
-                <li className='py-[6px] px-4 border-b-[1px] border-[#717171] hover:text-[#cca539]'>
-                  <Link href='#!'>Thiết kế & thi công nội thất</Link>
+              <ul className='invisible absolute top-[80px] left-[50%] z-50 flex flex-col bg-[#111] text-white shadow-xl group-hover:visible w-[240px] translate-x-[-50%]'>
+                <li className='py-[8px] px-4 border-b-[1px] border-[#717171] hover:text-[#cca539]'>
+                  <Link href='#'>Thiết kế & thi công nội thất</Link>
                 </li>
-                <li className='py-[6px] px-4 border-b-[1px] border-[#717171] hover:text-[#cca539]'>
-                  <Link href='#!'>Thiết kế kiến trúc</Link>
+                <li className='py-[8px] px-4 border-b-[1px] border-[#717171] hover:text-[#cca539]'>
+                  <Link href='#'>Thiết kế kiến trúc</Link>
                 </li>
-                <li className='py-[6px] px-4 border-b-[1px] border-[#717171] hover:text-[#cca539]'>
-                  <Link href='#!'>Thi công phần thô</Link>
+                <li className='py-[8px] px-4 border-b-[1px] border-[#717171] hover:text-[#cca539]'>
+                  <Link href='#'>Thi công phần thô</Link>
                 </li>
-                <li className='py-[6px] px-4 border-b-[1px] border-[#717171] hover:text-[#cca539]'>
-                  <Link href='#!'>Thi công hoàn thiện</Link>
+                <li className='py-[8px] px-4 border-b-[1px] border-[#717171] hover:text-[#cca539]'>
+                  <Link href='#'>Thi công hoàn thiện</Link>
                 </li>
-                <li className='py-[6px] px-4'>
-                  <Link href='#!'>Xây nhà trọn gói Đà Nẵng</Link>
+                <li className='py-[8px] px-4 border-[#717171] hover:text-[#cca539]'>
+                  <Link href='#'>Xây nhà trọn gói Đà Nẵng</Link>
                 </li>
               </ul>
             </li>
-            <li className='group relative hover:text-[#cca539]'>
-              <Link href='#!' className='menu-hover'>
+            <li className='group relative hover:text-[#cca539] h-full flex items-center'>
+              <Link href='#' className='menu-hover'>
                 DỰ ÁN
               </Link>
-              <ul className='invisible absolute z-50 flex w-[240px] flex-col bg-gray-100 py-1 px-4 text-gray-800 shadow-xl group-hover:visible'>
-                <li>
-                  <Link href='#!'>Nhà 2 tầng</Link>
+              <ul className='invisible absolute top-[80px] left-[50%] z-50 flex flex-col bg-[#111] text-white shadow-xl group-hover:visible w-[240px] translate-x-[-50%]'>
+                <li className='py-[8px] px-4 border-b-[1px] border-[#717171] hover:text-[#cca539]'>
+                  <Link href='#'>Nhà 2 tầng</Link>
                 </li>
-                <li>
-                  <Link href='#!'>Nhà 3 tầng</Link>
+                <li className='py-[8px] px-4 border-b-[1px] border-[#717171] hover:text-[#cca539]'>
+                  <Link href='#'>Nhà 3 tầng</Link>
                 </li>
-                <li>
-                  <Link href='#!'>Nhà 4 tầng</Link>
+                <li className='py-[8px] px-4 border-b-[1px] border-[#717171] hover:text-[#cca539]'>
+                  <Link href='#'>Nhà 4 tầng</Link>
                 </li>
-                <li>
-                  <Link href='#!'>Mẫu Nhà Cấp 4 Đẹp</Link>
+                <li className='py-[8px] px-4 border-b-[1px] border-[#717171] hover:text-[#cca539]'>
+                  <Link href='#'>Mẫu Nhà Cấp 4 Đẹp</Link>
                 </li>
-                <li>
-                  <Link href='#!'>Căn hộ, Nhà trọ, Chung cư</Link>
+                <li className='py-[8px] px-4 border-b-[1px] border-[#717171] hover:text-[#cca539]'>
+                  <Link href='#'>Căn hộ, Nhà trọ, Chung cư</Link>
                 </li>
-                <li>
-                  <Link href='#!'>Toà nhà văn phòng - Khách sạn</Link>
+                <li className='py-[8px] px-4 border-[#717171] hover:text-[#cca539]'>
+                  <Link href='#'>Toà nhà văn phòng - Khách sạn</Link>
                 </li>
               </ul>
             </li>
-            <li className='hover:text-[#cca539]'>
-              <Link href='#!'>BÁO GIÁ</Link>
+            <li className='hover:text-[#cca539] h-full flex items-center'>
+              <Link href='#'>BÁO GIÁ</Link>
             </li>
-            <li className='hover:text-[#cca539]'>
-              <Link href='#!'>KIẾN THỨC</Link>
+            <li className='group relative hover:text-[#cca539] h-full flex items-center'>
+              <Link href='#' className='menu-hover'>
+                KIẾN THỨC
+              </Link>
+              <ul className='invisible absolute top-[80px] left-[50%] z-50 flex flex-col bg-[#111] text-white shadow-xl group-hover:visible w-[240px] translate-x-[-50%]'>
+                <li className='py-[8px] px-4 border-b-[1px] border-[#717171] hover:text-[#cca539]'>
+                  <Link href='#'>Kiến thức xây nhà</Link>
+                </li>
+                <li className='py-[8px] px-4 border-b-[1px] border-[#717171] hover:text-[#cca539]'>
+                  <Link href='#'>Kiến thức phong thuỷ</Link>
+                </li>
+                <li className='py-[8px] px-4 border-b-[1px] border-[#717171] hover:text-[#cca539]'>
+                  <Link href='#'>Cẩm nang thi công</Link>
+                </li>
+                <li className='py-[8px] px-4 border-[#717171] hover:text-[#cca539]'>
+                  <Link href='#'>Câu hỏi thường gặp</Link>
+                </li>
+              </ul>
             </li>
           </ul>
-          <div>
-            <span>0972 910 046</span>
+          <div className='flex items-center gap-4'>
+            <span>0932.511.898</span>
+            <i className='fa-brands fa-windows text-[40px]'></i>
           </div>
         </div>
       </header>
-
-      <div
+      {/* <div
         className={classNames(
           'transition-all duration-300 fixed inset-0 z-50 bg-gray-900 bg-opacity-50 flex items-center justify-center',
           {
@@ -119,7 +135,7 @@ const Header = () => {
 
           <ul className='flex flex-col font-medium mt-4 rounded-lg bg-gray-50  text-[#191825]/50'>
             <Link
-              href={'./#!'}
+              href={'./#'}
               className='cursor-pointer transition-all duration-300 hover:text-[#26C6DA] py-4 pl-3 pr-4 flex items-center gap-2'
               onClick={handleMenuToggle}
             >
@@ -139,7 +155,7 @@ const Header = () => {
               </svg>
               <span>Trang chủ</span>
             </Link>
-            {/* <NavLink
+            <NavLink
               to={path.list_events}
               className={({ isActive }) =>
                 classNames(
@@ -196,10 +212,10 @@ const Header = () => {
               </svg>
 
               <span>Lịch</span>
-            </NavLink> */}
+            </NavLink>
           </ul>
         </div>
-      </div>
+      </div> */}
     </div>
   )
 }
