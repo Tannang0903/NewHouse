@@ -11,7 +11,7 @@ const Footer = () => {
       <div className='max-w-[1280px] m-auto grid grid-cols-4 gap-8 text-white'>
         <div className='col-span-1'>
           <div>
-            <Link href={'#!'}>
+            <Link href={'#'}>
               <Image src={logo} alt='logo-new-house' className='w-[60px] h-[60px] rounded-full' />
             </Link>
           </div>

@@ -7,8 +7,16 @@ const Container = () => {
   return (
     <div className='mt-[80px] bg-black'>
       <CompanyInfo />
-      <ConstructionSlider constructions={designWorks} />
-      <ConstructionSlider constructions={constructionWorks} />
+      <ConstructionSlider
+        title={designWorks.title}
+        description={designWorks.description}
+        constructions={designWorks.items}
+      />
+      <ConstructionSlider
+        title={constructionWorks.title}
+        description={constructionWorks.description}
+        constructions={constructionWorks.items}
+      />
     </div>
   )
 }
