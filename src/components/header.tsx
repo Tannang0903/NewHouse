@@ -3,16 +3,13 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import logo from '@/assets/image/logo.png'
-import { useState } from 'react'
-import classNames from 'classnames'
-import Button from './button'
 
 const Header = () => {
-  const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false)
+  // const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false)
 
-  const handleMenuToggle = () => {
-    setIsMenuOpen(!isMenuOpen)
-  }
+  // const handleMenuToggle = () => {
+  //   setIsMenuOpen(!isMenuOpen)
+  // }
 
   return (
     <div>
