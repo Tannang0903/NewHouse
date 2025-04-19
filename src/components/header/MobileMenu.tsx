@@ -3,7 +3,7 @@
 import Link from 'next/link'
 import classNames from 'classnames'
 import { useState } from 'react'
-import { routes } from '@/app/route'
+import { routes } from '@/constants/routes'
 
 interface MobileMenuProps {
   isOpen: boolean

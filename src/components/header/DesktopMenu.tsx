@@ -1,5 +1,5 @@
+import { routes } from '@/constants/routes'
 import Link from 'next/link'
-import { routes } from '@/app/route'
 
 const DesktopMenu = () => {
   return (

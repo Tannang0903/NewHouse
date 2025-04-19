@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 import { Fragment, useState } from 'react'
-import { routes } from '@/app/route'
+import { routes } from '@/constants/routes'
 import NextImage from '../common/NextImage'
 import logo from '@/assets/image/logo.png'
 import DesktopMenu from './DesktopMenu'

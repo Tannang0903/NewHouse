@@ -1,7 +1,7 @@
 'use client'
 
 import { memo } from 'react'
-import Image from 'next/image'
+import Image, { StaticImageData } from 'next/image'
 import { constructionWorks } from '../api/mockData'
 import commitment from '@/assets/image/commitment.png'
 import staff1 from '@/assets/image/staff-1.jpg'
@@ -34,7 +34,7 @@ const StaffImages = memo(() => (
 ))
 
 interface ImageWithLoadingProps {
-  src: string | any
+  src: string | StaticImageData
   alt: string
   width?: number
   height?: number

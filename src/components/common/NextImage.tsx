@@ -1,24 +1,16 @@
 'use client'
 
-import Image, { ImageProps } from 'next/image'
-import { useState } from 'react'
+import Image, { ImageProps, StaticImageData } from 'next/image'
+import { memo } from 'react'
 
 interface NextImageProps extends Omit<ImageProps, 'src'> {
-  src: string | any // Support both StaticImageData and string URLs
+  src: string | StaticImageData
 }
 
-const NextImage = ({ src, alt, className, ...props }: NextImageProps) => {
-  const [isLoading, setLoading] = useState(true)
-
-  return (
-    <Image
-      src={src}
-      alt={alt}
-      className={`${className} ${isLoading ? 'blur-sm grayscale' : 'blur-0 grayscale-0'} duration-700 ease-in-out`}
-      onLoadingComplete={() => setLoading(false)}
-      {...props}
-    />
-  )
+const NextImage = ({ src, alt, ...props }: NextImageProps) => {
+  return <Image src={src} alt={alt} {...props} />
 }
 
-export default NextImage
+NextImage.displayName = 'NextImage'
+
+export default memo(NextImage)
