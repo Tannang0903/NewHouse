@@ -4,6 +4,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
 import logo from '@/assets/image/logo.png'
+import footer from '@/assets/image/footer.jpg'
 
 const Footer = () => {
   return (
@@ -49,13 +50,11 @@ const Footer = () => {
             <ul>
               <li className='relative'>
                 <Link href={'https://www.facebook.com/NewHousethietkexaydungdanang'} target='_blank'>
-                  <img
-                    src='https://scontent.fdad1-4.fna.fbcdn.net/v/t39.30808-6/480798549_1084206653728894_1929986192652889701_n.jpg?_nc_cat=100&ccb=1-7&_nc_sid=cc71e4&_nc_ohc=TsEvnMUczyEQ7kNvwFfeBTW&_nc_oc=AdmGk-yTsxcqyd0Hb5g4QzhLFu6ZbHC3dp-8ZCoru5uVohZ0CvJcyaXoSsxM_ezttJc&_nc_zt=23&_nc_ht=scontent.fdad1-4.fna&_nc_gid=QzBefeRVCdwWguxWVujJEw&oh=00_AfF0ZG22Idrd_fYUV2OXSrakbgUdpCVzLF7NLjFxi2MGOg&oe=68017C6A'
-                    alt='ui/ux review check'
-                    className='object-cover w-full'
-                  />
-                  <div className='absolute left-2 top-2'>
-                    <Image src={logo} alt='logo-new-house' className='w-[60px] h-[60px] rounded-full' />
+                  <div className='relative w-full h-[200px]'>
+                    <Image src={footer} alt='footer' className='object-cover  w-full' />
+                    <div className='absolute left-2 top-2'>
+                      <Image src={logo} alt='logo-new-house' width={60} height={60} className='rounded-full' />
+                    </div>
                   </div>
                 </Link>
               </li>
