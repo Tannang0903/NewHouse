@@ -3,6 +3,7 @@ import Header from '@/components/header'
 import React from 'react'
 import commitment from '@/assets/image/commitment.png'
 import Image from 'next/image'
+import { constructionWorks } from '../api/mockData'
 
 const IntroducePage = () => {
   return (
@@ -73,6 +74,11 @@ const IntroducePage = () => {
           </div>
           <div className='flex flex-col gap-4'>
             <Image src={commitment} alt='commitment' className='object-cover object-bottom w-full' />
+          </div>
+          <div className='grid grid-cols-2 gap-4'>
+            {constructionWorks.items.map((item) => (
+              <img src={item.imageUrl} alt='ui/ux review check' className='object-cover object-bottom h-fullw-full' />
+            ))}
           </div>
         </div>
       </div>

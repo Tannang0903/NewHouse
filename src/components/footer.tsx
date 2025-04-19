@@ -8,8 +8,8 @@ import logo from '@/assets/image/logo.png'
 const Footer = () => {
   return (
     <div className='w-full bg-[#161616] py-10 px-4'>
-      <div className='max-w-[1200px] m-auto grid grid-cols-6 gap-6 text-white'>
-        <div className='col-span-2'>
+      <div className='max-w-[1200px] m-auto grid grid-cols-1 xl:grid-cols-3 lg:grid-cols-3 gap-6 text-white'>
+        <div className='col-span-1'>
           <div className='flex flex-col gap-6'>
             <h2 className='text-[16px] text-[#FFBA00] pb-2 border-b-[1px] border-[#FFBA00] uppercase font-semibold'>
               DỊCH VỤ CHÍNH
@@ -25,7 +25,7 @@ const Footer = () => {
             </ul>
           </div>
         </div>
-        <div className='col-span-2'>
+        <div className='col-span-1'>
           <div className='flex flex-col gap-6'>
             <h2 className='text-[16px] text-[#FFBA00] pb-2 border-b-[1px] border-[#FFBA00] uppercase font-semibold'>
               LIÊN HỆ
@@ -41,7 +41,7 @@ const Footer = () => {
             </ul>
           </div>
         </div>
-        <div className='col-span-2'>
+        <div className='col-span-1'>
           <div className='flex flex-col gap-6'>
             <h2 className='text-[16px] text-[#FFBA00] pb-2 border-b-[1px] border-[#FFBA00] uppercase font-semibold'>
               KẾT NỐI NEW HOUSE

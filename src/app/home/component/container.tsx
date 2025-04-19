@@ -5,7 +5,7 @@ import ConstructionSlider from './construction-slider'
 
 const Container = () => {
   return (
-    <div className='mt-[80px] bg-black'>
+    <div className='mt-[80px] bg-black xl:px-0 lg:px-0 md:px-0 px-5'>
       <CompanyInfo />
       <ConstructionSlider
         title={designWorks.title}

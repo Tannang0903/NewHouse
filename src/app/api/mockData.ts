@@ -221,16 +221,6 @@ export const constructionWorks = {
     },
     {
       id: '3',
-      name: 'Công Trình Nhà Phố 3 Tầng Hiện Đại – Thực Tế & Thiết Kế 3D',
-      introduction:
-        'Công trình nhà phố 3 tầng được thi công bám sát bản thiết kế 3D, sở hữu mặt tiền hiện đại và công năng tối ưu.',
-      description:
-        'Mẫu nhà phố 3 tầng nổi bật với mặt tiền hiện đại, kết hợp hài hòa giữa các mảng khối vuông vức và vật liệu giả gỗ ốp trần – ban công. Phối cảnh thiết kế 3D (bên phải) đề xuất không gian xanh ban công và các chi tiết cây leo điểm nhấn, mang đến cảm giác thoáng mát. Thực tế công trình (bên trái) đang trong quá trình hoàn thiện nhưng vẫn giữ đúng tinh thần thiết kế – với khối ban công vuông ốp giả gỗ, lan can kính và hệ cổng sắt hiện đại kết hợp nan gỗ. Đây là mẫu thiết kế thi công lý tưởng cho các khu phố có mặt tiền nhỏ nhưng cần tối đa công năng sử dụng.',
-      imageUrl:
-        'https://scontent.fdad1-4.fna.fbcdn.net/v/t39.30808-6/485064827_1102718355211057_2547808591492444707_n.jpg?stp=cp6_dst-jpg_tt6&_nc_cat=105&ccb=1-7&_nc_sid=127cfc&_nc_ohc=EhmWc4azCtkQ7kNvwH24-Pi&_nc_oc=AdlUk79XfwqDwU3pbDX9b60_CLlkZFNGaXxPYy9atIERvbc1iZmNsGxJuSayajm_Eyk&_nc_zt=23&_nc_ht=scontent.fdad1-4.fna&_nc_gid=gE787BgnuMvX6ILdOqNKEA&oh=00_AfFVfDrgM95KlzU_TGlLqec3cUqsNMHZJw-Z_Y8Z8AbUcg&oe=68017C62',
-    },
-    {
-      id: '4',
       name: 'Công Trình Nhà Phố 3 Tầng Kết Hợp Kinh Doanh – Mặt Tiền Ấn Tượng Với Họa Tiết Tròn',
       introduction:
         'Thi công thực tế nhà phố 3 tầng tại khu dân cư hiện đại, nổi bật với khối vòm cong và cửa tròn phá cách.',
@@ -240,7 +230,7 @@ export const constructionWorks = {
         ' https://scontent.fdad1-2.fna.fbcdn.net/v/t39.30808-6/481576024_1088873979928828_8226214122093593757_n.jpg?_nc_cat=102&ccb=1-7&_nc_sid=127cfc&_nc_ohc=3h19KKhMFEEQ7kNvwEAXYUU&_nc_oc=Adl_vcr-PlohBvB594ausCcW9p5BvSOWaLyjDunui11fcf8ntxsey_vVOQBG0koNDIk&_nc_zt=23&_nc_ht=scontent.fdad1-2.fna&_nc_gid=ZixBQLweP6jPPd7XWo4MTg&oh=00_AfH_yhecw8DszXGfMORxdZMTCh1e8jfQbXp8BNu5yoPMHw&oe=6801AFCD',
     },
     {
-      id: '5',
+      id: '4',
       name: 'Công Trình Nhà Phố 2 Tầng Hiện Đại – Thi Công Phần Thô',
       introduction:
         'Thiết kế nhà phố 2 tầng đang hoàn thiện với điểm nhấn khối vòm cong, mặt tiền tối giản và lối vào ấn tượng.',
@@ -250,7 +240,7 @@ export const constructionWorks = {
         ' https://scontent.fdad1-3.fna.fbcdn.net/v/t39.30808-6/481456350_1082739520542274_5308426010444886358_n.jpg?_nc_cat=110&ccb=1-7&_nc_sid=833d8c&_nc_ohc=hheLy4sWRboQ7kNvwG5_Zyc&_nc_oc=AdlFAiCFlfms91mcPbp9goebjeXPlIK-KL9VXY_8X-5R45vpogTqSu0EsVUdSGITN4w&_nc_zt=23&_nc_ht=scontent.fdad1-3.fna&_nc_gid=OJ_mjeCRWgK-2ZVaDdmCqA&oh=00_AfEzR9dDSpSzl6FV-G0F0GVC1Ce9JU-ia5ls8x92pY2zuQ&oe=6801A2DC',
     },
     {
-      id: '6',
+      id: '5',
       name: 'Công Trình Nhà Phố 4 Tầng Mặt Tiền Hẹp – Tối Ưu Chiều Cao & Thẩm Mỹ',
       introduction: 'Mẫu nhà phố 4 tầng thiết kế hiện đại, phù hợp các lô đất có mặt tiền hẹp tại khu dân cư đông đúc.',
       description:
@@ -259,7 +249,7 @@ export const constructionWorks = {
         ' https://scontent.fdad2-1.fna.fbcdn.net/v/t39.30808-6/475017948_1054471930035700_6559988313246517031_n.jpg?_nc_cat=108&ccb=1-7&_nc_sid=833d8c&_nc_ohc=iA22bG_IQdYQ7kNvwEsyemD&_nc_oc=AdnTp7s0if77qYV1qoviO3PRjvCGnLGu0tLuMssasEQr2qe3atGP_F0O91PTBKWvVA8&_nc_zt=23&_nc_ht=scontent.fdad2-1.fna&_nc_gid=QctVmGgnTPU39c9YND0yBg&oh=00_AfG0Uk81mab0XchXyYakTWeS_YkLNAQyrDfCR5b8xSNGMw&oe=6801804A',
     },
     {
-      id: '7',
+      id: '6',
       name: 'Nhà Phố 3 Tầng Có Sân Thượng – Thiết Kế Hiện Đại, Không Gian Thoáng Mát',
       introduction:
         'Công trình nhà phố 3 tầng hiện đại, nổi bật với sân thượng rộng rãi và mặt tiền bố cục tinh gọn, hợp xu hướng.',
@@ -267,6 +257,16 @@ export const constructionWorks = {
         'Mẫu nhà phố 3 tầng với mặt tiền rộng rãi, được thiết kế theo phong cách hiện đại, sử dụng hình khối vuông vức, mảng tường phẳng lớn và vật liệu kính giúp tối ưu ánh sáng tự nhiên. Ban công mỗi tầng đều được bố trí kính cường lực và lam gỗ nhựa ngoài trời, tạo điểm nhấn sang trọng. Sân thượng có mái che sắt sơn tĩnh điện, vừa chống nắng vừa tạo không gian lý tưởng để trồng cây hoặc thư giãn. Công trình phù hợp với các gia đình trẻ có nhu cầu sống thoáng đãng, có sân thượng mở và nhiều cửa sổ đón gió trời.',
       imageUrl:
         'https://scontent.fdad2-1.fna.fbcdn.net/v/t39.30808-6/474793149_1053760616773498_1988165019095954429_n.jpg?_nc_cat=107&ccb=1-7&_nc_sid=833d8c&_nc_ohc=EmCloAz3Mz8Q7kNvwE6ADMJ&_nc_oc=AdmBBcENpvpRWG0LQTyEpXT25ILjKgpoDseH1y4tyTT2wsSWL_QtlK5qAK7A8AxqDZk&_nc_zt=23&_nc_ht=scontent.fdad2-1.fna&_nc_gid=3wNpyN3ZwUG-2OYRBIgdyA&oh=00_AfGAkiO2i5f21lFsO2Csh7V9qqwRDTAJahVNqxf16Lvnuw&oe=68018710',
+    },
+    {
+      id: '7',
+      name: 'Công Trình Nhà Phố 3 Tầng Hiện Đại – Thực Tế & Thiết Kế 3D',
+      introduction:
+        'Công trình nhà phố 3 tầng được thi công bám sát bản thiết kế 3D, sở hữu mặt tiền hiện đại và công năng tối ưu.',
+      description:
+        'Mẫu nhà phố 3 tầng nổi bật với mặt tiền hiện đại, kết hợp hài hòa giữa các mảng khối vuông vức và vật liệu giả gỗ ốp trần – ban công. Phối cảnh thiết kế 3D (bên phải) đề xuất không gian xanh ban công và các chi tiết cây leo điểm nhấn, mang đến cảm giác thoáng mát. Thực tế công trình (bên trái) đang trong quá trình hoàn thiện nhưng vẫn giữ đúng tinh thần thiết kế – với khối ban công vuông ốp giả gỗ, lan can kính và hệ cổng sắt hiện đại kết hợp nan gỗ. Đây là mẫu thiết kế thi công lý tưởng cho các khu phố có mặt tiền nhỏ nhưng cần tối đa công năng sử dụng.',
+      imageUrl:
+        'https://scontent.fdad1-4.fna.fbcdn.net/v/t39.30808-6/485064827_1102718355211057_2547808591492444707_n.jpg?stp=cp6_dst-jpg_tt6&_nc_cat=105&ccb=1-7&_nc_sid=127cfc&_nc_ohc=EhmWc4azCtkQ7kNvwH24-Pi&_nc_oc=AdlUk79XfwqDwU3pbDX9b60_CLlkZFNGaXxPYy9atIERvbc1iZmNsGxJuSayajm_Eyk&_nc_zt=23&_nc_ht=scontent.fdad1-4.fna&_nc_gid=gE787BgnuMvX6ILdOqNKEA&oh=00_AfFVfDrgM95KlzU_TGlLqec3cUqsNMHZJw-Z_Y8Z8AbUcg&oe=68017C62',
     },
   ],
 }

@@ -21,19 +21,30 @@ const ConstructionSlider = ({ title, description, constructions }: Props) => {
   return (
     <div className='m-auto md:mt-10'>
       <div className='text-white border-t-[1px] border-[#FFBA00] py-10'>
-        <div className='flex flex-col gap-4 items-center mx-auto w-[60%]'>
+        <div className='flex flex-col gap-4 items-center mx-auto w-full xl:w-[60%] lg:w-[60%] md:w-[80%] max-md:w-full px-4'>
           <h2 className='text-[27px] text-[#FFBA00] leading-[100%]'>{title}</h2>
           <p className='text-[16px] font-light text-justify'>{description}</p>
         </div>
       </div>
       <div className='lg:gap-10 md:gap-4 w-full relative'>
-        <div className='overflow-hidden px-4 hidden lg:block'>
+        <div className='overflow-hidden px-4 block'>
           <Swiper
             slidesPerView={3}
             spaceBetween={50}
             navigation={true}
             pagination={true}
             keyboard={true}
+            breakpoints={{
+              0: {
+                slidesPerView: 1,
+              },
+              768: {
+                slidesPerView: 2,
+              },
+              1024: {
+                slidesPerView: 3,
+              },
+            }}
             modules={[Pagination, Navigation, Keyboard]}
             className='px-6 !overflow-visible flex'
           >
