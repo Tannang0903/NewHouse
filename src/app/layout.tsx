@@ -1,22 +1,13 @@
-import type { Metadata } from 'next'
+'use client'
+
 import { Roboto } from 'next/font/google'
+import Header from '@/components/header'
+import Footer from '@/components/footer'
 import './globals.css'
 
-const roboto = Roboto({
-  subsets: ['vietnamese'],
-  weight: ['100', '300', '400', '500', '700', '900'],
-})
+const roboto = Roboto({ subsets: ['vietnamese'], weight: ['100', '300', '400', '500', '700', '900'] })
 
-export const metadata: Metadata = {
-  title: 'Trang chủ',
-  description: 'Trang chủ của website',
-}
-
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode
-}>) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang='en'>
       <head>
@@ -29,18 +20,17 @@ export default function RootLayout({
         />
         <link
           rel='stylesheet'
-          href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css'
-          integrity='sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=='
-        />
-        <link
-          rel='stylesheet'
-          href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css'
-          integrity='sha512-...'
+          href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css'
+          integrity='sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=='
           crossOrigin='anonymous'
           referrerPolicy='no-referrer'
         />
       </head>
-      <body className={roboto.className}>{children}</body>
+      <body className={roboto.className}>
+        <Header />
+        <main className='min-h-screen pt-[80px]'>{children}</main>
+        <Footer />
+      </body>
     </html>
   )
 }

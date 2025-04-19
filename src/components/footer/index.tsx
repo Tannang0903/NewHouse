@@ -1,14 +1,14 @@
 'use client'
 
-import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
+import NextImage from '../common/NextImage'
 import logo from '@/assets/image/logo.png'
 import footer from '@/assets/image/footer.jpg'
 
 const Footer = () => {
   return (
-    <div className='w-full bg-[#161616] py-10 px-4'>
+    <div className='w-full bg-[#161616] py-10 xl:px-4 lg:px-4 md:px-4 px-2'>
       <div className='max-w-[1200px] m-auto grid grid-cols-1 xl:grid-cols-3 lg:grid-cols-3 gap-6 text-white'>
         <div className='col-span-1'>
           <div className='flex flex-col gap-6'>
@@ -51,9 +51,9 @@ const Footer = () => {
               <li className='relative'>
                 <Link href={'https://www.facebook.com/NewHousethietkexaydungdanang'} target='_blank'>
                   <div className='relative w-full h-[200px]'>
-                    <Image src={footer} alt='footer' className='object-cover  w-full' />
+                    <NextImage src={footer} alt='footer' fill className='object-cover' />
                     <div className='absolute left-2 top-2'>
-                      <Image src={logo} alt='logo-new-house' width={60} height={60} className='rounded-full' />
+                      <NextImage src={logo} alt='logo-new-house' width={60} height={60} className='rounded-full' />
                     </div>
                   </div>
                 </Link>
