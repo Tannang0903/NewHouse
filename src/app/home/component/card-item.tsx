@@ -1,6 +1,7 @@
 'use client'
 import React from 'react'
 import { Construction } from '@/interface/construction'
+import Image from 'next/image'
 
 interface Props {
   construction: Construction
@@ -23,8 +24,15 @@ const CardItem = ({ construction }: Props) => {
         }
       }}
     >
-      <div className='flex justify-center items-center w-full'>
-        <img src={construction.imageUrl} alt='ui/ux review check' className='object-cover h-[320px] w-full' />
+      <div className='flex justify-center items-center w-full relative h-[320px]'>
+        <Image
+          src={construction.imageUrl}
+          alt={construction.name}
+          fill
+          sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw'
+          className='object-cover'
+          priority
+        />
       </div>
       <div className='lg:py-4 md:px-4 md:py-2 max-md:px-2 max-md:py-2 overflow-hidden'>
         <div className='flex flex-col gap-4'>

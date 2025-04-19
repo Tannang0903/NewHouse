@@ -3,6 +3,7 @@ import { Swiper, SwiperSlide } from 'swiper/react'
 import 'swiper/css'
 import { companyImage, companyStaffImage } from '@/app/api/mockData'
 import { Fragment } from 'react'
+import Image from 'next/image'
 
 const CompanyInfo = () => {
   return (
@@ -10,11 +11,15 @@ const CompanyInfo = () => {
       <Swiper className='flex h-[calc(100vh-80px)]'>
         {companyImage.map((item, index) => (
           <SwiperSlide key={index} className='relative'>
-            <img
-              src={item.image}
-              alt='ui/ux review check'
-              className='xl:object-contain lg:object-contain  object-cover h-full w-full'
-            />
+            <div className='relative w-full h-full'>
+              <Image
+                src={item.image}
+                alt='design image'
+                fill
+                className='xl:object-contain lg:object-contain object-cover'
+                priority={index === 0}
+              />
+            </div>
             <div className='flex flex-col justify-center items-center absolute bg-[#ffba00] bottom-0 left-[50%] translate-x-[-50%] z-50'>
               <h2 className='px-4 py-2 border-b-[2px] border-[#000] w-full text-center text-[18px] font-bold'>
                 NEW HOUSE
@@ -30,11 +35,15 @@ const CompanyInfo = () => {
       <Swiper className='flex xl:h-[calc(100vh-80px)] lg:h-[calc(100vh-80px)] h-[400px] mt-[40px]'>
         {companyStaffImage.map((item, index) => (
           <SwiperSlide key={index} className='relative'>
-            <img
-              src={item.image}
-              alt='ui/ux review check'
-              className='xl:object-contain lg:object-contain object-cover h-full w-full'
-            />
+            <div className='relative w-full h-full'>
+              <Image
+                src={item.image}
+                alt='staff image'
+                fill
+                className='xl:object-contain lg:object-contain object-cover'
+                priority={index === 0}
+              />
+            </div>
           </SwiperSlide>
         ))}
       </Swiper>

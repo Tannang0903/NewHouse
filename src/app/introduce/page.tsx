@@ -4,6 +4,8 @@ import React from 'react'
 import commitment from '@/assets/image/commitment.png'
 import Image from 'next/image'
 import { constructionWorks } from '../api/mockData'
+import staff1 from '@/assets/image/staff-1.jpg'
+import staff7 from '@/assets/image/staff-7.jpg'
 
 const IntroducePage = () => {
   return (
@@ -15,14 +17,18 @@ const IntroducePage = () => {
             Công ty TNHH Thiết kế và Xây dựng New House Đơn vị TƯ VẤN - THIẾT KẾ - THI CÔNG xây dựng trọn gói uy tín.
           </h1>
           <div className='flex flex-col gap-4'>
-            <img
-              src='https://scontent.fdad2-1.fna.fbcdn.net/v/t39.30808-6/486351886_1104956858320540_23634803896451503_n.jpg?_nc_cat=108&ccb=1-7&_nc_sid=833d8c&_nc_ohc=MPPMtRVp8oIQ7kNvwHeP54s&_nc_oc=Adk9Tm1uNazzi8hhsJJqC_JEbweXEjjigRuSSkM4F0NzrPxqiYLaXSe0rW27lQr8djE&_nc_zt=23&_nc_ht=scontent.fdad2-1.fna&_nc_gid=MfGEjis_lv06dxa4wbNYyA&oh=00_AfFTm1wumrbqouuUAPJlOp-eyFaDt1B8G0Kp4-w3UluaNA&oe=6801B98E'
+            <Image
+              src={staff1}
               alt='staff'
+              width={1200}
+              height={600}
               className='object-cover object-bottom h-[600px] w-full'
             />
-            <img
-              src='https://scontent.fdad1-4.fna.fbcdn.net/v/t39.30808-6/486114690_1104955878320638_2006897523812426109_n.jpg?_nc_cat=100&ccb=1-7&_nc_sid=833d8c&_nc_ohc=-vq8bUzD2sQQ7kNvwFBD1y_&_nc_oc=AdksqC8f7UNOXy1k3qaXWjQQjP2TkOz-jorw2MxI9HXMc8hcIpTA5tDljI2GJ5LM_Ts&_nc_zt=23&_nc_ht=scontent.fdad1-4.fna&_nc_gid=F3IJ__kjhkXRGGzCCsCpLA&oh=00_AfGogQmQmQIDLra3v-wpYlCqD2o1Zmeu0ovlWOmLcgaSsQ&oe=6801B76B'
+            <Image
+              src={staff7}
               alt='ui/ux review check'
+              width={1200}
+              height={600}
               className='object-cover object-bottom h-[600px] w-full'
             />
           </div>
@@ -76,13 +82,10 @@ const IntroducePage = () => {
             <Image src={commitment} alt='commitment' className='object-cover object-bottom w-full' />
           </div>
           <div className='grid grid-cols-2 gap-4'>
-            {constructionWorks.items.map((item) => (
-              <img
-                key={item.imageUrl}
-                src={item.imageUrl}
-                alt='ui/ux review check'
-                className='object-cover object-bottom h-fullw-full'
-              />
+            {constructionWorks.items.slice(0, 6).map((item) => (
+              <div key={item.id} className='relative w-full h-[400px]'>
+                <Image src={item.imageUrl} alt={item.name} fill className='object-cover object-bottom' />
+              </div>
             ))}
           </div>
         </div>
