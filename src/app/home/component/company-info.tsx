@@ -46,7 +46,7 @@ const ImageSlide = memo(({ image, alt, priority }: ImageSlideProps) => {
 })
 
 const CompanyInfoBox = memo(() => (
-  <div className='flex flex-col justify-center items-center absolute bg-[#ffba00] bottom-0 left-[50%] translate-x-[-50%] z-50 shadow-lg w-[70%] md:w-auto'>
+  <div className='flex flex-col justify-center items-center absolute bg-[#ffba00] bottom-0 left-[50%] translate-x-[-50%] z-50 shadow-lg w-[90%] md:w-auto'>
     <h2 className='px-4 py-2 border-b-[2px] border-[#000] w-full text-center text-[16px] md:text-[18px] font-bold tracking-wide'>
       NEW HOUSE
     </h2>
