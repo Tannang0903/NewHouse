@@ -1,6 +1,5 @@
 'use client'
 import React from 'react'
-import { useRouter } from 'next/navigation'
 import { Construction } from '@/interface/construction'
 
 interface Props {
@@ -8,10 +7,8 @@ interface Props {
 }
 
 const CardItem = ({ construction }: Props) => {
-  const router = useRouter()
-
   const onShowDetail = () => {
-    // router.push(`/construction/${construction.id}`)
+    // Placeholder for future implementation
   }
 
   return (

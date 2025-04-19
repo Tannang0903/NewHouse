@@ -37,7 +37,7 @@ const IntroducePage = () => {
               <li>
                 Chúng tôi tin rằng, bằng tâm huyết cùng sự am hiểu sâu sắc về Kiến trúc và Xây dựng sẽ góp phần đáp ứng
                 mọi yêu cầu và sự hài lòng tối đa của Quý khách hàng từ việc tư vấn đến giai đoạn hoàn thiện công trình
-                và <b>“Chìa Khóa Trao Tay”.</b>
+                và <b>&ldquo;Chìa Khóa Trao Tay&rdquo;.</b>
               </li>
               <li>
                 Chúng tôi coi việc xây dựng ngôi nhà là một hành trình quan trọng, nơi mà mỗi không gian đều phản ánh
@@ -77,7 +77,12 @@ const IntroducePage = () => {
           </div>
           <div className='grid grid-cols-2 gap-4'>
             {constructionWorks.items.map((item) => (
-              <img src={item.imageUrl} alt='ui/ux review check' className='object-cover object-bottom h-fullw-full' />
+              <img
+                key={item.imageUrl}
+                src={item.imageUrl}
+                alt='ui/ux review check'
+                className='object-cover object-bottom h-fullw-full'
+              />
             ))}
           </div>
         </div>

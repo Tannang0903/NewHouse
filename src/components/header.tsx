@@ -4,9 +4,8 @@ import Link from 'next/link'
 import NavLink from 'next/link'
 import Image from 'next/image'
 import logo from '@/assets/image/logo.png'
-import { Fragment } from '@emotion/react/jsx-runtime'
 import classNames from 'classnames'
-import { useEffect, useState } from 'react'
+import { Fragment, useState } from 'react'
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false)
@@ -122,10 +121,7 @@ const Header = () => {
         <div
           className={classNames(
             'transition-all duration-300 fixed inset-0 z-50 bg-gray-900 bg-opacity-50 flex items-center justify-center',
-            {
-              'translate-x-0': isMenuOpen,
-              'translate-x-full': !isMenuOpen,
-            }
+            { 'translate-x-0': isMenuOpen, 'translate-x-full': !isMenuOpen }
           )}
         >
           <div className='bg-white w-full h-full overflow-auto transform transition-transform duration-300 flex flex-col'>
@@ -163,10 +159,7 @@ const Header = () => {
                 <ul
                   className={classNames(
                     'flex flex-col text-sm text-[#191825]/50 overflow-hidden transition-all duration-500 ease-in-out',
-                    {
-                      'opacity-100 mt-2': isServiceDropdownOpen,
-                      'opacity-0': !isServiceDropdownOpen,
-                    }
+                    { 'opacity-100 mt-2': isServiceDropdownOpen, 'opacity-0': !isServiceDropdownOpen }
                   )}
                 >
                   <NavLink
@@ -230,10 +223,7 @@ const Header = () => {
                 <ul
                   className={classNames(
                     'flex flex-col text-sm text-[#191825]/50 overflow-hidden transition-all duration-500 ease-in-out',
-                    {
-                      'opacity-100 mt-2': isProjectDropdownOpen,
-                      'opacity-0': !isProjectDropdownOpen,
-                    }
+                    { 'opacity-100 mt-2': isProjectDropdownOpen, 'opacity-0': !isProjectDropdownOpen }
                   )}
                 >
                   <NavLink
