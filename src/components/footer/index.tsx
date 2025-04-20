@@ -51,9 +51,20 @@ const Footer = () => {
               <li className='relative'>
                 <Link href={'https://www.facebook.com/NewHousethietkexaydungdanang'} target='_blank'>
                   <div className='relative w-full h-[200px]'>
-                    <NextImage src={footer} alt='footer' fill className='object-cover' />
+                    <NextImage
+                      src={footer}
+                      alt='footer'
+                      fill
+                      className='object-contain object-top lg:object-cover md:object-cover'
+                    />
                     <div className='absolute left-2 top-2'>
-                      <NextImage src={logo} alt='logo-new-house' width={60} height={60} className='rounded-full' />
+                      <NextImage
+                        src={logo}
+                        alt='logo-new-house'
+                        width={0}
+                        height={0}
+                        className='rounded-full w-[40px] h-[40px] md:w-[50px] md:h-[50px] lg:w-[60px] lg:h-[60px]'
+                      />
                     </div>
                   </div>
                 </Link>
