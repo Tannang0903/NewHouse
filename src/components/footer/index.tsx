@@ -36,9 +36,9 @@ const Footer = () => {
               <li>Tư vấn thiết kế - thi công nhà trọn gói miền Trung</li>
               <li>Hotline : 0932.511.898 (Mr. Văn) - 0905.404.171 (Mrs. Uyên) </li>
               <li>Mail: newhousecompany.danang@gmail.com</li>
-              <li>Cơ Sở Chính: 77 Trần Can, thanh khê, Đà Nẵng.</li>
-              <li>Trụ sở chính: 284-286 Lê Quảng Chí, Đà Nẵng</li>
-              <li>Chi nhánh Quảng Bình: 35 Lê Lai, Đồng Hới</li>
+              <li>Cơ Sở Chính: 68 Ngô Sĩ Liên, Đà Nẵng.</li>
+              <li>Chi nhánh Tam Kỳ: 27 Hoàng Châu Ký, Hòa Hương, Tam Kỳ.</li>
+              <li>Chi nhánh Quảng Bình: 35 Lê Lai, Đồng Hới.</li>
             </ul>
           </div>
         </div>
