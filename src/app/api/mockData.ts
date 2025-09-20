@@ -1,3 +1,4 @@
+import design0 from '@/assets/image/design-0.jpg'
 import design1 from '@/assets/image/design-1.jpg'
 import design2 from '@/assets/image/design-2.jpg'
 import design3 from '@/assets/image/design-3.jpg'
@@ -35,6 +36,7 @@ import construction6 from '@/assets/image/construction-6.jpg'
 import construction7 from '@/assets/image/construction-7.jpg'
 
 export const companyImage = [
+  { id: '0', image: design0 },
   { id: '1', image: design1 },
   { id: '2', image: design2 },
   { id: '3', image: design3 },

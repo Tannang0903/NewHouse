@@ -4,7 +4,7 @@ import Link from 'next/link'
 import React from 'react'
 import NextImage from '../common/NextImage'
 import logo from '@/assets/image/logo.png'
-import footer from '@/assets/image/footer.jpg'
+import footer from '@/assets/image/NEWHOUSE.png'
 
 const Footer = () => {
   return (
@@ -50,11 +50,10 @@ const Footer = () => {
             <ul>
               <li className='relative'>
                 <Link href={'https://www.facebook.com/NewHousethietkexaydungdanang'} target='_blank'>
-                  <div className='relative w-full h-[200px]'>
+                  <div className='relative w-full'>
                     <NextImage
                       src={footer}
                       alt='footer'
-                      fill
                       className='object-contain object-top lg:object-cover md:object-cover'
                     />
                     <div className='absolute left-2 top-2'>
