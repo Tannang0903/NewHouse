@@ -39,14 +39,14 @@ import construction10 from '@/assets/image/construction-10.jpg'
 import construction11 from '@/assets/image/construction-11.jpg'
 
 export const companyImage = [
-  { id: '1', image: house20 },
-  { id: '2', image: house19 },
-  { id: '3', image: house18 },
-  { id: '4', image: house17 },
-  { id: '5', image: house16 },
-  { id: '6', image: house15 },
-  { id: '7', image: house14 },
-  { id: '8', image: house13 },
+  { id: '1', image: house15 },
+  { id: '2', image: house14 },
+  { id: '3', image: house13 },
+  { id: '4', image: house18 },
+  { id: '5', image: house20 },
+  { id: '6', image: house19 },
+  { id: '7', image: house17 },
+  { id: '8', image: house16 },
   { id: '9', image: house12 },
   { id: '10', image: house11 },
   { id: '11', image: house10 },
@@ -113,9 +113,9 @@ export const designWorks = {
     {
       id: '16',
       name: 'Showroom – Văn Phòng Thương Mại 2 Tầng Hiện Đại Tối Giản',
-      introduction: 'Công trình thương mại 2 tầng nổi bật với mặt tiền đá đen marble sang trọng, sân thượng xanh mát và logo NEW HOUSE đầy tự hào.',
+      introduction: 'Công trình thương mại 2 tầng nổi bật với mặt tiền đá đen marble sang trọng, sân thượng xanh mát',
       description:
-        'Công trình showroom kết hợp văn phòng 2 tầng do NEW HOUSE thiết kế với ngôn ngữ kiến trúc hiện đại – tối giản đẳng cấp. Tầng trệt ốp đá marble đen bóng toàn bộ mặt tiền tạo nên vẻ sang trọng, chuyên nghiệp và thu hút ánh nhìn. Tầng thượng bo góc mềm mại với hệ cây xanh, trần gỗ ấm áp và không gian mở thoáng đãng phục vụ tiếp khách hoặc làm việc sáng tạo. Logo NEW HOUSE gắn nổi trên mặt tiền là minh chứng cho chất lượng và thương hiệu uy tín. Công trình lý tưởng cho showroom, văn phòng kiến trúc, spa hoặc các thương hiệu cao cấp.',
+        'Công trình showroom kết hợp văn phòng 2 tầng do NEW HOUSE thiết kế với ngôn ngữ kiến trúc hiện đại – tối giản đẳng cấp. Tầng trệt ốp đá marble đen bóng toàn bộ mặt tiền tạo nên vẻ sang trọng, chuyên nghiệp và thu hút ánh nhìn. Tầng thượng bo góc mềm mại với hệ cây xanh, trần gỗ ấm áp và không gian mở thoáng đãng phục vụ tiếp khách hoặc làm việc sáng tạo.',
       imageUrl: house16,
     },
     {
@@ -258,16 +258,16 @@ export const constructionWorks = {
       name: 'Thi Công Thực Tế vs Thiết Kế 3D – Nhà Phố 4 Tầng Hiện Đại',
       introduction: 'Minh chứng rõ nét nhất cho cam kết của NEW HOUSE: công trình thi công thực tế bám sát bản thiết kế 3D tối thiểu 95%.',
       description:
-        'Ảnh đối chiếu ấn tượng giữa công trình nhà phố 4 tầng đang thi công thô và bản render thiết kế 3D hoàn thiện. Phần bên trái ghi lại giai đoạn thi công kết cấu bê tông cốt thép với hệ giàn giáo chuyên nghiệp; bên phải là bản thiết kế 3D với mặt tiền hiện đại tông xám – trắng, ban công kính, cửa vòm cung và hệ lam trang trí tinh tế. Logo NEW HOUSE trên đỉnh ảnh khẳng định thương hiệu uy tín — nơi bản vẽ không chỉ là ước mơ mà là cam kết được hiện thực hóa hoàn toàn.',
+        'Ảnh đối chiếu ấn tượng giữa công trình nhà phố 4 tầng đang thi công thô và bản render thiết kế 3D hoàn thiện. Phần bên trái ghi lại giai đoạn thi công kết cấu bê tông cốt thép với hệ giàn giáo chuyên nghiệp; bên phải là bản thiết kế 3D với mặt tiền hiện đại tông xám – trắng, ban công kính, cửa vòm cung và hệ lam trang trí tinh tế.',
       imageUrl: construction11,
     },
     {
       id: '8',
-      name: 'Công Trình Nhà Phố 3 Tầng Năng Động – Logo NEW HOUSE Trên Mái',
+      name: 'Công Trình Nhà Phố 3 Tầng Năng Động',
       introduction:
-        'Công trình thực tế 3 tầng nổi bật với mặt tiền xanh biển – cam – trắng phóng khoáng, họa tiết sóng cong và logo NEW HOUSE.',
+        'Công trình thực tế 3 tầng nổi bật với mặt tiền xanh biển – cam – trắng phóng khoáng, họa tiết sóng cong',
       description:
-        'Công trình nhà phố 3 tầng do NEW HOUSE thiết kế và thi công trọn gói với mặt tiền cực kỳ ấn tượng: tông xanh biển đậm kết hợp cam vàng và trắng tinh tạo nên sắc thái trẻ trung, năng động. Họa tiết đường cong lớn chạy dọc mặt tiền cùng ô tròn trang trí tạo nhịp điệu thị giác sinh động. Logo NEW HOUSE gắn trang trọng trên mái là minh chứng cho sự tự hào về chất lượng công trình. Cổng sắt hoa văn và sân trước rộng rãi hoàn thiện không gian sống đầy cá tính.',
+        'Công trình nhà phố 3 tầng do NEW HOUSE thiết kế và thi công trọn gói với mặt tiền cực kỳ ấn tượng: tông xanh biển đậm kết hợp cam vàng và trắng tinh tạo nên sắc thái trẻ trung, năng động. Họa tiết đường cong lớn chạy dọc mặt tiền cùng ô tròn trang trí tạo nhịp điệu thị giác sinh động.',
       imageUrl: construction8,
     },
     {
