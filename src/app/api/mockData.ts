@@ -1,14 +1,3 @@
-import design0 from '@/assets/image/design-0.jpg'
-import design1 from '@/assets/image/design-1.jpg'
-import design2 from '@/assets/image/design-2.jpg'
-import design3 from '@/assets/image/design-3.jpg'
-import design4 from '@/assets/image/design-4.jpg'
-import design5 from '@/assets/image/design-5.jpg'
-import design6 from '@/assets/image/design-6.jpg'
-import design7 from '@/assets/image/design-7.jpg'
-import design8 from '@/assets/image/design-8.jpg'
-import design9 from '@/assets/image/design-9.jpg'
-import design10 from '@/assets/image/design-10.jpg'
 import staff1 from '@/assets/image/staff-1.jpg'
 import staff2 from '@/assets/image/staff-2.jpg'
 import staff3 from '@/assets/image/staff-3.jpg'
@@ -27,6 +16,16 @@ import house7 from '@/assets/image/house-7.jpg'
 import house8 from '@/assets/image/house-8.jpg'
 import house9 from '@/assets/image/house-9.jpg'
 import house10 from '@/assets/image/house-10.jpg'
+import house11 from '@/assets/image/house-11.jpg'
+import house12 from '@/assets/image/house-12.jpg'
+import house13 from '@/assets/image/house-13.jpg'
+import house14 from '@/assets/image/house-14.jpg'
+import house15 from '@/assets/image/house-15.jpg'
+import house16 from '@/assets/image/house-16.jpg'
+import house17 from '@/assets/image/house-17.jpg'
+import house18 from '@/assets/image/house-18.jpg'
+import house19 from '@/assets/image/house-19.jpg'
+import house20 from '@/assets/image/house-20.jpg'
 import construction1 from '@/assets/image/construction-1.jpg'
 import construction2 from '@/assets/image/construction-2.jpg'
 import construction3 from '@/assets/image/construction-3.jpg'
@@ -34,19 +33,32 @@ import construction4 from '@/assets/image/construction-4.jpg'
 import construction5 from '@/assets/image/construction-5.jpg'
 import construction6 from '@/assets/image/construction-6.jpg'
 import construction7 from '@/assets/image/construction-7.jpg'
+import construction8 from '@/assets/image/construction-8.jpg'
+import construction9 from '@/assets/image/construction-9.jpg'
+import construction10 from '@/assets/image/construction-10.jpg'
+import construction11 from '@/assets/image/construction-11.jpg'
 
 export const companyImage = [
-  { id: '0', image: design0 },
-  { id: '1', image: design1 },
-  { id: '2', image: design2 },
-  { id: '3', image: design3 },
-  { id: '4', image: design4 },
-  { id: '5', image: design5 },
-  { id: '6', image: design6 },
-  { id: '7', image: design7 },
-  { id: '8', image: design8 },
-  { id: '9', image: design9 },
-  { id: '10', image: design10 },
+  { id: '1', image: house20 },
+  { id: '2', image: house19 },
+  { id: '3', image: house18 },
+  { id: '4', image: house17 },
+  { id: '5', image: house16 },
+  { id: '6', image: house15 },
+  { id: '7', image: house14 },
+  { id: '8', image: house13 },
+  { id: '9', image: house12 },
+  { id: '10', image: house11 },
+  { id: '11', image: house10 },
+  { id: '12', image: house9 },
+  { id: '13', image: house8 },
+  { id: '14', image: house7 },
+  { id: '15', image: house6 },
+  { id: '16', image: house5 },
+  { id: '17', image: house4 },
+  { id: '18', image: house3 },
+  { id: '19', image: house2 },
+  { id: '20', image: house1 },
 ]
 
 export const companyStaffImage = [
@@ -66,6 +78,86 @@ export const designWorks = {
             của NEW HOUSE là hiện đại - tối giản - tiện nghi - thông thoáng. Ngoài ra, những ý tưởng và sở thích của gia
             chủ cũng được ưu tiên hàng đầu, để tạo nên một công trình nhà ở độc bản, mang đậm dấu ấn cá nhân.`,
   items: [
+    {
+      id: '20',
+      name: 'Nhà Phố 3 Tầng Địa Trung Hải Thuần Khiết – Vòm Gỗ & Trắng Tinh',
+      introduction: 'Thiết kế nhà phố 3 tầng chuẩn phong cách Địa Trung Hải với tông trắng thuần khiết, cổng vòm gỗ tròn và cây xanh bao phủ.',
+      description:
+        'Công trình nhà phố 3 tầng là bức tranh Địa Trung Hải hoàn hảo giữa lòng phố thị: toàn bộ mặt tiền phủ trắng tinh khiết, nổi bật với cổng vòm gỗ tự nhiên hình bán nguyệt tạo điểm nhấn ấm áp, gần gũi. Hệ cửa sổ vòm cung thanh thoát xuyên suốt 3 tầng kết hợp cây xanh tươi tốt trên ban công và tường rào tạo nên không gian sống trong lành, thơ mộng. Cây dừa và cây bụi xanh bao quanh hoàn thiện vẻ đẹp resort giữa đô thị đầy tinh tế.',
+      imageUrl: house20,
+    },
+    {
+      id: '19',
+      name: 'Nhà Phố 3 Tầng Hiện Đại – Trần Gỗ Đỏ Hắt Đèn & Hình Khối Lệch Tầng',
+      introduction: 'Thiết kế nhà phố 3 tầng độc đáo với trần gỗ đỏ mở hắt đèn, hình khối lệch tầng cá tính và cây xanh trên cao.',
+      description:
+        'Công trình nhà phố 3 tầng mang ngôn ngữ kiến trúc hiện đại phá cách với hình khối lệch tầng ấn tượng — mỗi tầng nhô ra hoặc thụt vào tạo chiều sâu thị giác khác biệt. Điểm nhấn nổi bật là trần gỗ đỏ mở hắt đèn âm trang trọng ở tầng thượng, tạo ánh sáng ấm áp chan hòa. Cây xanh được bố trí trên ban công và tường đứng, kết hợp hệ cửa rèm gỗ thanh lịch ở tầng 2. Cửa cuốn tầng trệt và xe VinFast đậu trước tạo nên tổng thể đô thị hiện đại, trẻ trung.',
+      imageUrl: house19,
+    },
+    {
+      id: '18',
+      name: 'Nhà Phố Tân Cổ Điển Pháp 5 Tầng',
+      introduction: 'Kiệt tác tân cổ điển Pháp với phù điêu tinh xảo, cột trang trí và ánh đèn vàng lung linh trong đêm.',
+      description:
+        'Công trình nhà phố 5 tầng phong cách tân cổ điển Pháp nổi bật với hệ phù điêu điêu khắc chi tiết tinh xảo trên từng tầng mặt tiền. Cột trang trí cổ điển, ban công sắt rèn nghệ thuật và ánh đèn chiếu sáng vàng ấm tạo nên vẻ đẹp hoành tráng, sang trọng. Công trình phù hợp với gia chủ yêu thích sự quý phái và mong muốn sở hữu một "lâu đài" giữa lòng phố thị.',
+      imageUrl: house18,
+    },
+    {
+      id: '17',
+      name: 'Tòa Nhà 7 Tầng Mặt Tiền Hẹp – Ban Công Xanh',
+      introduction: 'Tòa nhà 7 tầng tối ưu diện tích, mỗi tầng một khoảng ban công cây xanh tràn đầy sức sống.',
+      description:
+        'Giải pháp thiết kế thông minh cho lô đất mặt tiền hẹp với chiều cao 7 tầng. Mỗi tầng được bố trí ban công rộng trồng cây xanh, tạo "bức tường sinh thái" che nắng tự nhiên và tăng thẩm mỹ công trình. Mặt tiền kết hợp bê tông trắng và ô kính lớn, mái kính đỉnh tòa đón sáng tự nhiên tối đa. Phù hợp cho văn phòng kết hợp nhà ở hoặc căn hộ dịch vụ cho thuê.',
+      imageUrl: house17,
+    },
+    {
+      id: '16',
+      name: 'Showroom – Văn Phòng Thương Mại 2 Tầng Hiện Đại Tối Giản',
+      introduction: 'Công trình thương mại 2 tầng nổi bật với mặt tiền đá đen marble sang trọng, sân thượng xanh mát và logo NEW HOUSE đầy tự hào.',
+      description:
+        'Công trình showroom kết hợp văn phòng 2 tầng do NEW HOUSE thiết kế với ngôn ngữ kiến trúc hiện đại – tối giản đẳng cấp. Tầng trệt ốp đá marble đen bóng toàn bộ mặt tiền tạo nên vẻ sang trọng, chuyên nghiệp và thu hút ánh nhìn. Tầng thượng bo góc mềm mại với hệ cây xanh, trần gỗ ấm áp và không gian mở thoáng đãng phục vụ tiếp khách hoặc làm việc sáng tạo. Logo NEW HOUSE gắn nổi trên mặt tiền là minh chứng cho chất lượng và thương hiệu uy tín. Công trình lý tưởng cho showroom, văn phòng kiến trúc, spa hoặc các thương hiệu cao cấp.',
+      imageUrl: house16,
+    },
+    {
+      id: '15',
+      name: 'Nhà Phố 4 Tầng Bo Góc Mềm Mại Hiện Đại',
+      introduction: 'Nhà phố 4 tầng ấn tượng với mặt tiền ốp gạch trắng texture bo góc mềm và trần gỗ phát sáng ấm áp.',
+      description:
+        'Công trình 4 tầng mang phong cách hiện đại với điểm đặc trưng là các góc bo mềm mại trên toàn bộ mặt tiền – tạo cảm giác nhẹ nhàng, tinh tế thay vì góc cạnh thô cứng. Lớp gạch trắng texture bề mặt tạo chiều sâu thị giác, trong khi trần gỗ hắt đèn vàng ấm ở tầng thượng tạo không gian sinh hoạt ngoài trời đẳng cấp. Rào cây xanh bao quanh hoàn thiện vẻ đẹp hài hòa giữa kiến trúc và thiên nhiên.',
+      imageUrl: house15,
+    },
+    {
+      id: '14',
+      name: 'Biệt Thự Phố 3 Tầng Ốp Đá Marble Cao Cấp',
+      introduction: 'Biệt thự phố 3 tầng góc rộng sang trọng với đá marble xám, lan can kính và mái hắt gỗ tinh tế.',
+      description:
+        'Công trình biệt thự phố 3 tầng thiết kế trên lô góc, tận dụng tối đa 2 mặt tiền để tạo không gian mở và thoáng đãng. Mặt tiền ốp đá marble xám cao cấp kết hợp hệ lan can kính cường lực và mái hắt gỗ tự nhiên tạo nên diện mạo sang trọng, đẳng cấp. Xe ô tô đỗ trước cổng tôn thêm vẻ hiện đại và tiện nghi của không gian sinh sống chất lượng cao.',
+      imageUrl: house14,
+    },
+    {
+      id: '13',
+      name: 'Nhà Phố 3 Tầng Vòm Cung Cổ Điển – Góc Nhìn Thực Tế',
+      introduction: 'Góc chụp thực tế của công trình 3 tầng vòm cung tròn nổi bật giữa hàng cây xanh mát.',
+      description:
+        'Công trình nhà phố 3 tầng với thiết kế vòm cung tròn đặc trưng được ghi lại ở góc nhìn thực tế giữa không gian đô thị xanh mát. Mặt tiền tông trắng – xám nhẹ nhàng nổi bật với hệ cửa vòm tầng 2 và ô vuông cây xanh tầng 3. Ánh đèn vàng ấm hắt qua ô cửa về đêm tạo nên bầu không khí ấm cúng, dễ chịu. Đây là lựa chọn lý tưởng cho gia đình yêu phong cách Địa Trung Hải hiện đại.',
+      imageUrl: house13,
+    },
+    {
+      id: '12',
+      name: 'Nhà Phố 3 Tầng Cửa Lật Gỗ Và Đá Granite Cá Tính',
+      introduction: 'Nhà phố 3 tầng độc đáo với cửa lật gỗ góc chéo lớn, cột ốp đá granite và vườn xanh ôm trọn ngôi nhà.',
+      description:
+        'Thiết kế nhà phố 3 tầng mang cá tính riêng biệt với hệ cửa lật gỗ kích thước lớn mở theo góc chéo – tạo điểm nhấn kiến trúc chưa từng thấy. Cột ốp đá granite thô bên cạnh đối lập hoàn hảo với mặt tường trắng phẳng, trong khi hàng rào cây xanh rậm rạp tạo lớp bảo vệ riêng tư tự nhiên. Mái phẳng tông tối hiện đại kết hợp trần gỗ thoáng mát hoàn thiện tổng thể công trình.',
+      imageUrl: house12,
+    },
+    {
+      id: '11',
+      name: 'Nhà Phố 3 Tầng Phong Cách Địa Trung Hải Hiện Đại',
+      introduction: 'Thiết kế nhà phố 3 tầng nổi bật với vòm cung tròn đặc trưng, tông trắng thanh lịch và cây xanh ban công.',
+      description:
+        'Công trình nhà phố 3 tầng lấy cảm hứng từ kiến trúc Địa Trung Hải hiện đại với điểm nhấn là những vòm cung tròn thanh thoát ở tầng 2 và tầng 3. Tông màu trắng chủ đạo kết hợp hệ đèn chiếu sáng âm trần tạo nên vẻ đẹp tinh khiết, sang trọng. Cây xanh được bố trí trên ban công và xung quanh hàng rào mang lại sự tươi mát và gần gũi thiên nhiên giữa phố thị.',
+      imageUrl: house11,
+    },
     {
       id: '1',
       name: 'Nhà Phố 2 Tầng Hiện Đại Tối Giản',
@@ -161,6 +253,41 @@ export const constructionWorks = {
     nhưng từ hạng mục lớn nhỏ đều được áp dụng kỹ thuật thi công nhà cao tầng Coteccons.
     Hơn thế nữa, các công trình được thiết kế - thi công trọn gói sẽ giống với bản vẽ thiết kế ít nhất 95%.`,
   items: [
+    {
+      id: '11',
+      name: 'Thi Công Thực Tế vs Thiết Kế 3D – Nhà Phố 4 Tầng Hiện Đại',
+      introduction: 'Minh chứng rõ nét nhất cho cam kết của NEW HOUSE: công trình thi công thực tế bám sát bản thiết kế 3D tối thiểu 95%.',
+      description:
+        'Ảnh đối chiếu ấn tượng giữa công trình nhà phố 4 tầng đang thi công thô và bản render thiết kế 3D hoàn thiện. Phần bên trái ghi lại giai đoạn thi công kết cấu bê tông cốt thép với hệ giàn giáo chuyên nghiệp; bên phải là bản thiết kế 3D với mặt tiền hiện đại tông xám – trắng, ban công kính, cửa vòm cung và hệ lam trang trí tinh tế. Logo NEW HOUSE trên đỉnh ảnh khẳng định thương hiệu uy tín — nơi bản vẽ không chỉ là ước mơ mà là cam kết được hiện thực hóa hoàn toàn.',
+      imageUrl: construction11,
+    },
+    {
+      id: '8',
+      name: 'Công Trình Nhà Phố 3 Tầng Năng Động – Logo NEW HOUSE Trên Mái',
+      introduction:
+        'Công trình thực tế 3 tầng nổi bật với mặt tiền xanh biển – cam – trắng phóng khoáng, họa tiết sóng cong và logo NEW HOUSE.',
+      description:
+        'Công trình nhà phố 3 tầng do NEW HOUSE thiết kế và thi công trọn gói với mặt tiền cực kỳ ấn tượng: tông xanh biển đậm kết hợp cam vàng và trắng tinh tạo nên sắc thái trẻ trung, năng động. Họa tiết đường cong lớn chạy dọc mặt tiền cùng ô tròn trang trí tạo nhịp điệu thị giác sinh động. Logo NEW HOUSE gắn trang trọng trên mái là minh chứng cho sự tự hào về chất lượng công trình. Cổng sắt hoa văn và sân trước rộng rãi hoàn thiện không gian sống đầy cá tính.',
+      imageUrl: construction8,
+    },
+    {
+      id: '9',
+      name: 'Công Trình Nhà Phố 2 Tầng Tân Cổ Điển Trắng Đen Sang Trọng',
+      introduction:
+        'Công trình thi công thực tế phong cách tân cổ điển với mặt tiền trắng đen, vòm cung và phù điêu tinh xảo.',
+      description:
+        'Ngôi nhà 2 tầng tân cổ điển được thi công hoàn chỉnh với mặt tiền tông trắng – đen sang trọng. Phần mái vòm cung cổ điển kết hợp cùng các chi tiết phù điêu trang trí ở trán tường tạo nên vẻ quý phái, bề thế. Hệ cửa nhôm kính lớn ở tầng trệt và ban công tầng 2 đảm bảo ánh sáng tự nhiên ngập tràn bên trong. Công trình đang trong giai đoạn hoàn thiện hạ tầng xung quanh, hứa hẹn trở thành điểm nhấn kiến trúc nổi bật trong khu dân cư.',
+      imageUrl: construction9,
+    },
+    {
+      id: '10',
+      name: 'Công Trình Nhà Phố 2 Tầng Hiện Đại Tối Giản – Điểm Nhấn Cam',
+      introduction:
+        'Công trình hoàn thiện thực tế với mặt tiền trắng – cam nổi bật, ô lam trang trí độc đáo và cổng nhôm kéo hiện đại.',
+      description:
+        'Ngôi nhà phố 2 tầng được hoàn thiện theo phong cách hiện đại tối giản với bảng màu trắng – cam tươi trẻ, năng động. Điểm nhấn đặc biệt là ô lam trang trí bằng thép sơn tĩnh điện màu cam ở tầng 1, vừa tạo thẩm mỹ vừa tăng thông thoáng tự nhiên cho không gian bên trong. Hệ cổng kéo nhôm xám cùng cửa kính khung nhôm tạo sự đồng bộ tinh tế. Công trình do NEW HOUSE thi công trọn gói, đảm bảo khớp bản vẽ thiết kế tối thiểu 95%.',
+      imageUrl: construction10,
+    },
     {
       id: '1',
       name: 'Công Trình Thi Công Nhà Mái Thái 2 Tầng Tại Đà Nẵng',
