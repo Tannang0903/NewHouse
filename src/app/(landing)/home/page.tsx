@@ -3,7 +3,8 @@ import CompanyInfo from './component/company-info'
 import ConstructionSlider from './component/construction-slider'
 import { getConstructions } from '@/lib/api'
 
-// Server Component — fetch data trực tiếp từ DB
+export const dynamic = 'force-dynamic'
+
 export default async function HomePage() {
   const [designWorks, constructionWorks, interiorWorks] = await Promise.all([
     getConstructions('DESIGN'),
