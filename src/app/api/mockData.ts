@@ -81,7 +81,8 @@ export const designWorks = {
     {
       id: '20',
       name: 'Nhà Phố 3 Tầng Địa Trung Hải Thuần Khiết – Vòm Gỗ & Trắng Tinh',
-      introduction: 'Thiết kế nhà phố 3 tầng chuẩn phong cách Địa Trung Hải với tông trắng thuần khiết, cổng vòm gỗ tròn và cây xanh bao phủ.',
+      introduction:
+        'Thiết kế nhà phố 3 tầng chuẩn phong cách Địa Trung Hải với tông trắng thuần khiết, cổng vòm gỗ tròn và cây xanh bao phủ.',
       description:
         'Công trình nhà phố 3 tầng là bức tranh Địa Trung Hải hoàn hảo giữa lòng phố thị: toàn bộ mặt tiền phủ trắng tinh khiết, nổi bật với cổng vòm gỗ tự nhiên hình bán nguyệt tạo điểm nhấn ấm áp, gần gũi. Hệ cửa sổ vòm cung thanh thoát xuyên suốt 3 tầng kết hợp cây xanh tươi tốt trên ban công và tường rào tạo nên không gian sống trong lành, thơ mộng. Cây dừa và cây bụi xanh bao quanh hoàn thiện vẻ đẹp resort giữa đô thị đầy tinh tế.',
       imageUrl: house20,
@@ -89,7 +90,8 @@ export const designWorks = {
     {
       id: '19',
       name: 'Nhà Phố 3 Tầng Hiện Đại – Trần Gỗ Đỏ Hắt Đèn & Hình Khối Lệch Tầng',
-      introduction: 'Thiết kế nhà phố 3 tầng độc đáo với trần gỗ đỏ mở hắt đèn, hình khối lệch tầng cá tính và cây xanh trên cao.',
+      introduction:
+        'Thiết kế nhà phố 3 tầng độc đáo với trần gỗ đỏ mở hắt đèn, hình khối lệch tầng cá tính và cây xanh trên cao.',
       description:
         'Công trình nhà phố 3 tầng mang ngôn ngữ kiến trúc hiện đại phá cách với hình khối lệch tầng ấn tượng — mỗi tầng nhô ra hoặc thụt vào tạo chiều sâu thị giác khác biệt. Điểm nhấn nổi bật là trần gỗ đỏ mở hắt đèn âm trang trọng ở tầng thượng, tạo ánh sáng ấm áp chan hòa. Cây xanh được bố trí trên ban công và tường đứng, kết hợp hệ cửa rèm gỗ thanh lịch ở tầng 2. Cửa cuốn tầng trệt và xe VinFast đậu trước tạo nên tổng thể đô thị hiện đại, trẻ trung.',
       imageUrl: house19,
@@ -97,7 +99,8 @@ export const designWorks = {
     {
       id: '18',
       name: 'Nhà Phố Tân Cổ Điển Pháp 5 Tầng',
-      introduction: 'Kiệt tác tân cổ điển Pháp với phù điêu tinh xảo, cột trang trí và ánh đèn vàng lung linh trong đêm.',
+      introduction:
+        'Kiệt tác tân cổ điển Pháp với phù điêu tinh xảo, cột trang trí và ánh đèn vàng lung linh trong đêm.',
       description:
         'Công trình nhà phố 5 tầng phong cách tân cổ điển Pháp nổi bật với hệ phù điêu điêu khắc chi tiết tinh xảo trên từng tầng mặt tiền. Cột trang trí cổ điển, ban công sắt rèn nghệ thuật và ánh đèn chiếu sáng vàng ấm tạo nên vẻ đẹp hoành tráng, sang trọng. Công trình phù hợp với gia chủ yêu thích sự quý phái và mong muốn sở hữu một "lâu đài" giữa lòng phố thị.',
       imageUrl: house18,
@@ -113,7 +116,8 @@ export const designWorks = {
     {
       id: '16',
       name: 'Showroom – Văn Phòng Thương Mại 2 Tầng Hiện Đại Tối Giản',
-      introduction: 'Công trình thương mại 2 tầng nổi bật với mặt tiền đá đen marble sang trọng, sân thượng xanh mát và logo NEW HOUSE đầy tự hào.',
+      introduction:
+        'Công trình thương mại 2 tầng nổi bật với mặt tiền đá đen marble sang trọng, sân thượng xanh mát và logo NEW HOUSE đầy tự hào.',
       description:
         'Công trình showroom kết hợp văn phòng 2 tầng do NEW HOUSE thiết kế với ngôn ngữ kiến trúc hiện đại – tối giản đẳng cấp. Tầng trệt ốp đá marble đen bóng toàn bộ mặt tiền tạo nên vẻ sang trọng, chuyên nghiệp và thu hút ánh nhìn. Tầng thượng bo góc mềm mại với hệ cây xanh, trần gỗ ấm áp và không gian mở thoáng đãng phục vụ tiếp khách hoặc làm việc sáng tạo. Logo NEW HOUSE gắn nổi trên mặt tiền là minh chứng cho chất lượng và thương hiệu uy tín. Công trình lý tưởng cho showroom, văn phòng kiến trúc, spa hoặc các thương hiệu cao cấp.',
       imageUrl: house16,
@@ -145,7 +149,8 @@ export const designWorks = {
     {
       id: '12',
       name: 'Nhà Phố 3 Tầng Cửa Lật Gỗ Và Đá Granite Cá Tính',
-      introduction: 'Nhà phố 3 tầng độc đáo với cửa lật gỗ góc chéo lớn, cột ốp đá granite và vườn xanh ôm trọn ngôi nhà.',
+      introduction:
+        'Nhà phố 3 tầng độc đáo với cửa lật gỗ góc chéo lớn, cột ốp đá granite và vườn xanh ôm trọn ngôi nhà.',
       description:
         'Thiết kế nhà phố 3 tầng mang cá tính riêng biệt với hệ cửa lật gỗ kích thước lớn mở theo góc chéo – tạo điểm nhấn kiến trúc chưa từng thấy. Cột ốp đá granite thô bên cạnh đối lập hoàn hảo với mặt tường trắng phẳng, trong khi hàng rào cây xanh rậm rạp tạo lớp bảo vệ riêng tư tự nhiên. Mái phẳng tông tối hiện đại kết hợp trần gỗ thoáng mát hoàn thiện tổng thể công trình.',
       imageUrl: house12,
@@ -153,7 +158,8 @@ export const designWorks = {
     {
       id: '11',
       name: 'Nhà Phố 3 Tầng Phong Cách Địa Trung Hải Hiện Đại',
-      introduction: 'Thiết kế nhà phố 3 tầng nổi bật với vòm cung tròn đặc trưng, tông trắng thanh lịch và cây xanh ban công.',
+      introduction:
+        'Thiết kế nhà phố 3 tầng nổi bật với vòm cung tròn đặc trưng, tông trắng thanh lịch và cây xanh ban công.',
       description:
         'Công trình nhà phố 3 tầng lấy cảm hứng từ kiến trúc Địa Trung Hải hiện đại với điểm nhấn là những vòm cung tròn thanh thoát ở tầng 2 và tầng 3. Tông màu trắng chủ đạo kết hợp hệ đèn chiếu sáng âm trần tạo nên vẻ đẹp tinh khiết, sang trọng. Cây xanh được bố trí trên ban công và xung quanh hàng rào mang lại sự tươi mát và gần gũi thiên nhiên giữa phố thị.',
       imageUrl: house11,
@@ -256,7 +262,8 @@ export const constructionWorks = {
     {
       id: '11',
       name: 'Thi Công Thực Tế vs Thiết Kế 3D – Nhà Phố 4 Tầng Hiện Đại',
-      introduction: 'Minh chứng rõ nét nhất cho cam kết của NEW HOUSE: công trình thi công thực tế bám sát bản thiết kế 3D tối thiểu 95%.',
+      introduction:
+        'Minh chứng rõ nét nhất cho cam kết của NEW HOUSE: công trình thi công thực tế bám sát bản thiết kế 3D tối thiểu 95%.',
       description:
         'Ảnh đối chiếu ấn tượng giữa công trình nhà phố 4 tầng đang thi công thô và bản render thiết kế 3D hoàn thiện. Phần bên trái ghi lại giai đoạn thi công kết cấu bê tông cốt thép với hệ giàn giáo chuyên nghiệp; bên phải là bản thiết kế 3D với mặt tiền hiện đại tông xám – trắng, ban công kính, cửa vòm cung và hệ lam trang trí tinh tế. Logo NEW HOUSE trên đỉnh ảnh khẳng định thương hiệu uy tín — nơi bản vẽ không chỉ là ước mơ mà là cam kết được hiện thực hóa hoàn toàn.',
       imageUrl: construction11,

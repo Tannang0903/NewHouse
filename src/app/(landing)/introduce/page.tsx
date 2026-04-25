@@ -2,7 +2,7 @@
 
 import { memo } from 'react'
 import Image, { StaticImageData } from 'next/image'
-import { constructionWorks } from '../api/mockData'
+import { constructionWorks } from '../../api/mockData'
 import commitment from '@/assets/image/commitment.png'
 import staff1 from '@/assets/image/staff-1.jpg'
 import staff7 from '@/assets/image/staff-7.jpg'

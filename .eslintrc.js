@@ -1,11 +1,7 @@
 module.exports = {
   parser: '@typescript-eslint/parser',
   plugins: ['@typescript-eslint'],
-  extends: [
-    'next/core-web-vitals',
-    'plugin:@typescript-eslint/recommended',
-    'plugin:prettier/recommended'
-  ],
+  extends: ['next/core-web-vitals', 'plugin:@typescript-eslint/recommended', 'plugin:prettier/recommended'],
   rules: {
     'prettier/prettier': ['warn', { endOfLine: 'auto' }],
     'import/no-unresolved': 'off',
@@ -15,6 +11,6 @@ module.exports = {
     'import/no-duplicates': 'off',
     '@next/next/no-img-element': 'warn',
     'react/no-unescaped-entities': 'warn',
-    'react/jsx-key': 'warn'
-  }
-} 
+    'react/jsx-key': 'warn',
+  },
+}

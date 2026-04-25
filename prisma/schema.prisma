@@ -1,0 +1,93 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ==================== AUTH ====================
+
+enum Role {
+  ADMIN
+  USER
+}
+
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  password  String
+  name      String?
+  role      Role     @default(USER)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+// ==================== CONSTRUCTION ====================
+
+enum ConstructionType {
+  DESIGN       // Cong trinh thiet ke
+  CONSTRUCTION // Cong trinh thi cong
+  INTERIOR     // Noi that
+}
+
+model Construction {
+  id           String           @id @default(cuid())
+  name         String
+  introduction String
+  description  String           @db.Text
+  images       String[]         // Array URL anh
+  type         ConstructionType
+  order        Int              @default(0)
+  isActive     Boolean          @default(true)
+  createdAt    DateTime         @default(now())
+  updatedAt    DateTime         @updatedAt
+}
+
+// ==================== PRICING ====================
+
+model DesignPrice {
+  id         String  @id @default(cuid())
+  label      String
+  price      Float
+  isIncluded Boolean @default(true)
+  note       String? @db.Text
+  order      Int     @default(0)
+}
+
+model RoughLaborPrice {
+  id         String  @id @default(cuid())
+  label      String
+  price      Float
+  isIncluded Boolean @default(true)
+  note       String? @db.Text
+  order      Int     @default(0)
+}
+
+model CompletedPrice {
+  id         String  @id @default(cuid())
+  label      String
+  price      Float
+  isIncluded Boolean @default(true)
+  note       String? @db.Text
+  order      Int     @default(0)
+}
+
+// ==================== BLOG ====================
+
+model Blog {
+  id           String   @id @default(cuid())
+  slug         String   @unique
+  title        String
+  summary      String   @db.Text
+  content      String   @db.Text
+  thumbnailUrl String?
+  author       String   @default("NewHouse")
+  isPublished  Boolean  @default(false)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}

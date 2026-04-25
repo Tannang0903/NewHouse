@@ -1,12 +1,11 @@
-'use client'
-
 import { Roboto } from 'next/font/google'
-import Header from '@/components/header'
-import Footer from '@/components/footer'
 import './globals.css'
 
 const roboto = Roboto({ subsets: ['vietnamese'], weight: ['100', '300', '400', '500', '700', '900'] })
 
+// Root layout - KHÔNG có Header/Footer
+// Landing page dùng (landing)/layout.tsx
+// Admin page dùng admin/(protected)/layout.tsx
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang='en'>
@@ -26,11 +25,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           referrerPolicy='no-referrer'
         />
       </head>
-      <body className={roboto.className}>
-        <Header />
-        <main className='min-h-screen pt-[80px]'>{children}</main>
-        <Footer />
-      </body>
+      <body className={roboto.className}>{children}</body>
     </html>
   )
 }

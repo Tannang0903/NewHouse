@@ -3,7 +3,7 @@
 import { memo, useState } from 'react'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import Image from 'next/image'
-import { companyImage, companyStaffImage } from '@/app/api/mockData'
+import { companyStaffImage } from '@/app/api/mockData'
 import 'swiper/css'
 import 'swiper/css/navigation'
 import 'swiper/css/pagination'
@@ -19,6 +19,11 @@ interface ImageSlideProps {
   image: string | StaticImageData
   alt: string
   priority: boolean
+}
+
+interface CompanyInfoProps {
+  // Ảnh đầu tiên của từng công trình thiết kế từ DB
+  designImages: string[]
 }
 
 const ImageSlide = memo(({ image, alt, priority }: ImageSlideProps) => {
@@ -51,7 +56,7 @@ const CompanyInfoBox = memo(() => (
       NEW HOUSE
     </h2>
     <div className='flex flex-col justify-center items-center px-4 py-2 font-light text-[13px] md:text-[14px] w-full'>
-      <p className='text-center'>Tư vấn Thiết kế & Thi công Xây dựng Đà Nẵng</p>
+      <p className='text-center'>Tư vấn Thiết kế &amp; Thi công Xây dựng Đà Nẵng</p>
       <a
         href='tel:0932511898'
         className='text-center hover:underline transition-all duration-300 mt-1'
@@ -63,17 +68,21 @@ const CompanyInfoBox = memo(() => (
   </div>
 ))
 
-const CompanyInfo = () => {
+const PLACEHOLDER = 'https://placehold.co/1200x800/1a1a1a/ffba00?text=NewHouse'
+
+const CompanyInfo = ({ designImages }: CompanyInfoProps) => {
+  // Dùng ảnh từ DB, fallback về placeholder nếu chưa có data
+  const slides =
+    designImages.length > 0
+      ? designImages.map((url, i) => ({ id: String(i), image: url }))
+      : [{ id: '0', image: PLACEHOLDER }]
+
   return (
     <section className='space-y-10' aria-label='Thông tin công ty'>
       <Swiper className='flex h-[calc(100vh-80px)]'>
-        {companyImage.map((item: ImageData, index) => (
+        {slides.map((item: ImageData, index) => (
           <SwiperSlide key={item.id || index} className='relative'>
-            <ImageSlide
-              image={item.image}
-              alt={item.description || 'Hình ảnh thiết kế NewHouse'}
-              priority={index === 0}
-            />
+            <ImageSlide image={item.image} alt='Hình ảnh thiết kế NewHouse' priority={index === 0} />
             <CompanyInfoBox />
           </SwiperSlide>
         ))}
