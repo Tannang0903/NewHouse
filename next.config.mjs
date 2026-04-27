@@ -14,6 +14,9 @@ const nextConfig = {
       { protocol: 'https', hostname: 'placehold.co' },
     ],
   },
+  experimental: {
+    serverExternalPackages: ['pg', '@prisma/adapter-pg'],
+  },
 }
 
 export default nextConfig

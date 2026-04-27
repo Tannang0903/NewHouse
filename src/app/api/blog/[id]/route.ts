@@ -4,12 +4,18 @@ import { authOptions } from '@/lib/auth'
 import { prisma } from '@/lib/prisma'
 import { Prisma } from '@prisma/client'
 
+const stripHtml = (html: string) =>
+  html
+    .replace(/<[^>]*>/g, '')
+    .replace(/&nbsp;/g, ' ')
+    .trim()
+
 export async function GET(_: NextRequest, { params }: { params: { id: string } }) {
   try {
     const session = await getServerSession(authOptions)
 
     const blog = await prisma.blog.findFirst({
-      where: session ? { id: params.id } : { id: params.id, isPublished: true },
+      where: session?.user?.role === 'ADMIN' ? { id: params.id } : { id: params.id, isPublished: true },
     })
 
     if (!blog) return NextResponse.json({ error: 'Không tìm thấy' }, { status: 404 })
@@ -30,7 +36,27 @@ export async function PUT(request: NextRequest, { params }: { params: { id: stri
     const body = await request.json()
     const { slug, title, summary, content, thumbnailUrl, author, isPublished } = body
 
-    if (slug) {
+    if (slug !== undefined && !slug.trim()) {
+      return NextResponse.json({ error: 'Slug không được để trống' }, { status: 400 })
+    }
+
+    if (title !== undefined && !title.trim()) {
+      return NextResponse.json({ error: 'Tiêu đề không được để trống' }, { status: 400 })
+    }
+
+    if (summary !== undefined && !summary.trim()) {
+      return NextResponse.json({ error: 'Tóm tắt không được để trống' }, { status: 400 })
+    }
+
+    if (author !== undefined && !author.trim()) {
+      return NextResponse.json({ error: 'Tác giả không được để trống' }, { status: 400 })
+    }
+
+    if (content !== undefined && stripHtml(content).length === 0) {
+      return NextResponse.json({ error: 'Nội dung bài viết không được để trống' }, { status: 400 })
+    }
+
+    if (slug !== undefined) {
       const existing = await prisma.blog.findUnique({ where: { slug } })
       if (existing && existing.id !== params.id) {
         return NextResponse.json({ error: 'Slug đã tồn tại' }, { status: 409 })
@@ -40,12 +66,12 @@ export async function PUT(request: NextRequest, { params }: { params: { id: stri
     const blog = await prisma.blog.update({
       where: { id: params.id },
       data: {
-        ...(slug && { slug }),
-        ...(title && { title }),
-        ...(summary && { summary }),
-        ...(content && { content }),
+        ...(slug !== undefined && { slug }),
+        ...(title !== undefined && { title }),
+        ...(summary !== undefined && { summary }),
+        ...(content !== undefined && { content }),
         ...(thumbnailUrl !== undefined && { thumbnailUrl }),
-        ...(author && { author }),
+        ...(author !== undefined && { author }),
         ...(isPublished !== undefined && { isPublished }),
       },
     })

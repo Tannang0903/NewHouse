@@ -3,6 +3,12 @@ import { getServerSession } from 'next-auth'
 import { authOptions } from '@/lib/auth'
 import { prisma } from '@/lib/prisma'
 
+const stripHtml = (html: string) =>
+  html
+    .replace(/<[^>]*>/g, '')
+    .replace(/&nbsp;/g, ' ')
+    .trim()
+
 export async function GET() {
   try {
     const session = await getServerSession(authOptions)
@@ -46,6 +52,10 @@ export async function POST(request: Request) {
 
     if (!slug || !title || !summary || !content) {
       return NextResponse.json({ error: 'Thiếu thông tin bắt buộc' }, { status: 400 })
+    }
+
+    if (stripHtml(content).length === 0) {
+      return NextResponse.json({ error: 'Nội dung bài viết không được để trống' }, { status: 400 })
     }
 
     const existing = await prisma.blog.findUnique({ where: { slug } })

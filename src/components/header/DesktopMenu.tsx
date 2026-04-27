@@ -53,24 +53,8 @@ const DesktopMenu = () => {
       <li className='hover:text-[#cca539] h-full flex items-center'>
         <Link href='#'>BÁO GIÁ</Link>
       </li>
-      <li className='group relative hover:text-[#cca539] h-full flex items-center'>
-        <Link href='#' className='menu-hover'>
-          KIẾN THỨC
-        </Link>
-        <ul className='invisible absolute top-[80px] left-[50%] z-50 flex flex-col bg-[#111] text-white shadow-xl group-hover:visible w-[240px] translate-x-[-50%]'>
-          <li className='py-[8px] px-4 border-b-[1px] border-[#717171] hover:text-[#cca539]'>
-            <Link href='#'>Kiến thức xây nhà</Link>
-          </li>
-          <li className='py-[8px] px-4 border-b-[1px] border-[#717171] hover:text-[#cca539]'>
-            <Link href='#'>Kiến thức phong thuỷ</Link>
-          </li>
-          <li className='py-[8px] px-4 border-b-[1px] border-[#717171] hover:text-[#cca539]'>
-            <Link href='#'>Cẩm nang thi công</Link>
-          </li>
-          <li className='py-[8px] px-4 border-[#717171] hover:text-[#cca539]'>
-            <Link href='#'>Câu hỏi thường gặp</Link>
-          </li>
-        </ul>
+      <li className='hover:text-[#cca539] h-full flex items-center'>
+        <Link href={routes.BLOG}>BLOG</Link>
       </li>
     </ul>
   )

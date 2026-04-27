@@ -8,6 +8,8 @@ interface ImageUploadProps {
   folder?: string // Folder trên Cloudinary
   maxImages?: number // Số ảnh tối đa (default: 10)
   single?: boolean // Chỉ upload 1 ảnh (dùng cho thumbnail)
+  onUploadStart?: () => void
+  onUploadEnd?: () => void
 }
 
 interface UploadingFile {
@@ -23,6 +25,8 @@ export default function ImageUpload({
   folder = 'general',
   maxImages = 10,
   single = false,
+  onUploadStart,
+  onUploadEnd,
 }: ImageUploadProps) {
   const [uploading, setUploading] = useState<UploadingFile[]>([])
   const [isDragging, setIsDragging] = useState(false)
@@ -73,6 +77,7 @@ export default function ImageUpload({
       }))
 
       setUploading((prev) => [...prev, ...newUploading])
+      onUploadStart?.()
 
       // Upload từng file
       const uploadedUrls: string[] = []
@@ -92,6 +97,8 @@ export default function ImageUpload({
           setUploading((prev) => prev.map((u) => (u.id === uploadItem.id ? { ...u, progress: 'error' } : u)))
         }
       }
+
+      onUploadEnd?.()
 
       // Cập nhật danh sách URL
       if (uploadedUrls.length > 0) {

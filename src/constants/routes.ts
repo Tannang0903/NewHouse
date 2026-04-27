@@ -16,6 +16,8 @@ export const routes = {
     INTERIOR_DESIGN: '/project/interior-design',
   },
   COST: '/cost',
+  BLOG: '/blog',
+  BLOG_POST: (slug: string) => `/blog/${slug}`,
   KNOWLEDGE: {
     TIPS: '/knowledge/tips',
     NEWS: '/knowledge/news',

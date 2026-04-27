@@ -27,6 +27,43 @@ const API_MAP: Record<PriceType, string> = {
 
 const EMPTY_FORM = { label: '', price: 0, isIncluded: true, note: '', order: 0 }
 
+const Spinner = () => (
+  <svg className='w-4 h-4 animate-spin' fill='none' viewBox='0 0 24 24'>
+    <circle className='opacity-25' cx='12' cy='12' r='10' stroke='currentColor' strokeWidth='4' />
+    <path className='opacity-75' fill='currentColor' d='M4 12a8 8 0 018-8v8z' />
+  </svg>
+)
+
+const IconEdit = () => (
+  <svg
+    xmlns='http://www.w3.org/2000/svg'
+    className='w-4 h-4'
+    viewBox='0 0 24 24'
+    fill='none'
+    stroke='currentColor'
+    strokeWidth={2}
+  >
+    <path d='M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7' />
+    <path d='M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z' />
+  </svg>
+)
+
+const IconTrash = () => (
+  <svg
+    xmlns='http://www.w3.org/2000/svg'
+    className='w-4 h-4'
+    viewBox='0 0 24 24'
+    fill='none'
+    stroke='currentColor'
+    strokeWidth={2}
+  >
+    <polyline points='3 6 5 6 21 6' />
+    <path d='M19 6l-1 14a2 2 0 01-2 2H8a2 2 0 01-2-2L5 6' />
+    <path d='M10 11v6M14 11v6' />
+    <path d='M9 6V4a1 1 0 011-1h4a1 1 0 011 1v2' />
+  </svg>
+)
+
 export default function PricingAdminPage() {
   const [activeTab, setActiveTab] = useState<PriceType>('design')
   const [items, setItems] = useState<PriceItem[]>([])
@@ -35,18 +72,43 @@ export default function PricingAdminPage() {
   const [editItem, setEditItem] = useState<PriceItem | null>(null)
   const [form, setForm] = useState(EMPTY_FORM)
   const [saving, setSaving] = useState(false)
+  const [deletingId, setDeletingId] = useState<string | null>(null)
   const [error, setError] = useState('')
 
-  const fetchData = useCallback(async () => {
-    setLoading(true)
-    const res = await fetch(API_MAP[activeTab])
-    const data = await res.json()
-    setItems(data)
-    setLoading(false)
-  }, [activeTab])
+  const isAnyLoading = saving || !!deletingId
+
+  const fetchData = useCallback(
+    async (signal?: AbortSignal) => {
+      setLoading(true)
+      setError('')
+      try {
+        const res = await fetch(API_MAP[activeTab], { signal })
+        if (!res.ok) {
+          const data = await res.json()
+          if (!signal?.aborted) {
+            setError(data.error || 'Không thể tải dữ liệu bảng giá')
+            setItems([])
+          }
+          return
+        }
+        const data = await res.json()
+        if (!signal?.aborted) setItems(Array.isArray(data) ? data : [])
+      } catch {
+        if (!signal?.aborted) {
+          setError('Không thể tải dữ liệu bảng giá')
+          setItems([])
+        }
+      } finally {
+        if (!signal?.aborted) setLoading(false)
+      }
+    },
+    [activeTab]
+  )
 
   useEffect(() => {
-    fetchData()
+    const controller = new AbortController()
+    fetchData(controller.signal)
+    return () => controller.abort()
   }, [fetchData])
 
   const openCreate = () => {
@@ -71,8 +133,20 @@ export default function PricingAdminPage() {
 
   const handleDelete = async (id: string) => {
     if (!confirm('Xóa hạng mục này?')) return
-    await fetch(`${API_MAP[activeTab]}/${id}`, { method: 'DELETE' })
-    fetchData()
+    setDeletingId(id)
+    try {
+      const res = await fetch(`${API_MAP[activeTab]}/${id}`, { method: 'DELETE' })
+      if (!res.ok) {
+        const data = await res.json()
+        setError(data.error || 'Xóa thất bại')
+        return
+      }
+      fetchData()
+    } catch {
+      setError('Xóa thất bại')
+    } finally {
+      setDeletingId(null)
+    }
   }
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -83,22 +157,26 @@ export default function PricingAdminPage() {
     const url = editItem ? `${API_MAP[activeTab]}/${editItem.id}` : API_MAP[activeTab]
     const method = editItem ? 'PUT' : 'POST'
 
-    const res = await fetch(url, {
-      method,
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(form),
-    })
+    try {
+      const res = await fetch(url, {
+        method,
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(form),
+      })
 
-    setSaving(false)
+      if (!res.ok) {
+        const data = await res.json()
+        setError(data.error || 'Có lỗi xảy ra')
+        return
+      }
 
-    if (!res.ok) {
-      const data = await res.json()
-      setError(data.error || 'Có lỗi xảy ra')
-      return
+      setShowModal(false)
+      fetchData()
+    } catch {
+      setError('Không thể kết nối server')
+    } finally {
+      setSaving(false)
     }
-
-    setShowModal(false)
-    fetchData()
   }
 
   const formatPrice = (price: number) => new Intl.NumberFormat('vi-VN').format(price) + ' đ/m²'
@@ -114,7 +192,8 @@ export default function PricingAdminPage() {
         </div>
         <button
           onClick={openCreate}
-          className='bg-amber-500 hover:bg-amber-600 text-white px-5 py-2.5 rounded-lg font-medium transition-colors flex items-center gap-2'
+          disabled={isAnyLoading}
+          className='bg-amber-500 hover:bg-amber-600 disabled:opacity-50 text-white px-5 py-2.5 rounded-lg font-medium transition-colors flex items-center gap-2'
         >
           <span>➕</span> Thêm hạng mục
         </button>
@@ -126,7 +205,8 @@ export default function PricingAdminPage() {
           <button
             key={tab.key}
             onClick={() => setActiveTab(tab.key)}
-            className={`flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-medium transition-all ${
+            disabled={isAnyLoading}
+            className={`flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-medium transition-all disabled:opacity-50 ${
               activeTab === tab.key
                 ? `${tab.color} text-white shadow-md`
                 : 'bg-white text-gray-600 border border-gray-200 hover:bg-gray-50'
@@ -143,7 +223,15 @@ export default function PricingAdminPage() {
         <div className='text-center py-20 text-gray-400'>Đang tải...</div>
       ) : (
         <div className='bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden'>
-          <table className='w-full'>
+          <table className='w-full table-fixed'>
+            <colgroup>
+              <col className='w-16' />
+              <col />
+              <col className='w-40' />
+              <col className='w-28' />
+              <col className='w-44' />
+              <col className='w-28' />
+            </colgroup>
             <thead>
               <tr className='bg-gray-50 border-b border-gray-100'>
                 <th className='text-left px-6 py-3 text-xs font-semibold text-gray-500 uppercase'>Thứ tự</th>
@@ -165,8 +253,8 @@ export default function PricingAdminPage() {
                 items.map((item) => (
                   <tr key={item.id} className='hover:bg-gray-50 transition-colors'>
                     <td className='px-6 py-4 text-sm text-gray-500'>{item.order}</td>
-                    <td className='px-6 py-4'>
-                      <p className='text-sm font-medium text-gray-900'>{item.label}</p>
+                    <td className='px-6 py-4 min-w-0'>
+                      <p className='text-sm font-medium text-gray-900 truncate'>{item.label}</p>
                     </td>
                     <td className='px-6 py-4'>
                       <span className='text-sm font-semibold text-gray-900'>{formatPrice(item.price)}</span>
@@ -182,19 +270,22 @@ export default function PricingAdminPage() {
                     </td>
                     <td className='px-6 py-4 text-sm text-gray-400 max-w-xs truncate'>{item.note || '—'}</td>
                     <td className='px-6 py-4 text-right'>
-                      <div className='flex items-center justify-end gap-2'>
+                      <div className='flex items-center justify-end gap-1'>
                         <button
                           onClick={() => openEdit(item)}
-                          className='text-sm text-blue-600 hover:text-blue-800 font-medium'
+                          disabled={isAnyLoading}
+                          title='Chỉnh sửa'
+                          className='p-1.5 rounded-md text-blue-500 hover:bg-blue-50 transition-colors disabled:opacity-40'
                         >
-                          Sửa
+                          <IconEdit />
                         </button>
-                        <span className='text-gray-300'>|</span>
                         <button
                           onClick={() => handleDelete(item.id)}
-                          className='text-sm text-red-500 hover:text-red-700 font-medium'
+                          disabled={isAnyLoading}
+                          title='Xóa'
+                          className='p-1.5 rounded-md text-red-500 hover:bg-red-50 transition-colors disabled:opacity-40'
                         >
-                          Xóa
+                          {deletingId === item.id ? <Spinner /> : <IconTrash />}
                         </button>
                       </div>
                     </td>
@@ -233,7 +324,8 @@ export default function PricingAdminPage() {
               </h2>
               <button
                 onClick={() => setShowModal(false)}
-                className='text-gray-400 hover:text-gray-600 text-2xl leading-none'
+                disabled={saving}
+                className='text-gray-400 hover:text-gray-600 text-2xl leading-none disabled:opacity-50'
               >
                 ×
               </button>
@@ -313,15 +405,17 @@ export default function PricingAdminPage() {
                 <button
                   type='button'
                   onClick={() => setShowModal(false)}
-                  className='px-5 py-2 text-sm font-medium text-gray-600 bg-gray-100 hover:bg-gray-200 rounded-lg transition-colors'
+                  disabled={saving}
+                  className='px-5 py-2 text-sm font-medium text-gray-600 bg-gray-100 hover:bg-gray-200 disabled:opacity-50 rounded-lg transition-colors'
                 >
                   Hủy
                 </button>
                 <button
                   type='submit'
-                  disabled={saving}
-                  className='px-5 py-2 text-sm font-medium text-white bg-amber-500 hover:bg-amber-600 disabled:opacity-50 rounded-lg transition-colors'
+                  disabled={isAnyLoading}
+                  className='px-5 py-2 text-sm font-medium text-white bg-amber-500 hover:bg-amber-600 disabled:opacity-50 rounded-lg transition-colors flex items-center gap-2'
                 >
+                  {saving && <Spinner />}
                   {saving ? 'Đang lưu...' : editItem ? 'Cập nhật' : 'Thêm mới'}
                 </button>
               </div>

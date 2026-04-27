@@ -14,10 +14,14 @@ export async function PUT(request: NextRequest, { params }: { params: { id: stri
     const body = await request.json()
     const { label, price, isIncluded, note, order } = body
 
+    if (label !== undefined && !label.trim()) {
+      return NextResponse.json({ error: 'Tên hạng mục không được để trống' }, { status: 400 })
+    }
+
     const item = await prisma.roughLaborPrice.update({
       where: { id: params.id },
       data: {
-        ...(label && { label }),
+        ...(label !== undefined && { label }),
         ...(price !== undefined && { price }),
         ...(isIncluded !== undefined && { isIncluded }),
         ...(note !== undefined && { note }),

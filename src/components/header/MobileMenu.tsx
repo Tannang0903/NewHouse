@@ -152,12 +152,12 @@ const MobileMenu = ({ isOpen, onClose }: MobileMenuProps) => {
             <span>BÁO GIÁ</span>
           </Link>
           <Link
-            href='#'
+            href={routes.BLOG}
             className='hover:text-[#cca539] hover:bg-[#fbf7ed] cursor-pointer transition-all duration-300 p-4 flex items-center gap-2'
             onClick={onClose}
           >
-            <i className='fa-solid fa-book-atlas w-6 text-center'></i>
-            <span>KIẾN THỨC</span>
+            <i className='fa-solid fa-newspaper w-6 text-center'></i>
+            <span>BLOG</span>
           </Link>
         </ul>
       </div>

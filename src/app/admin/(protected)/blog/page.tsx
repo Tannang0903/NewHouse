@@ -1,7 +1,10 @@
 'use client'
 
 import { useState, useEffect, useCallback } from 'react'
+import dynamic from 'next/dynamic'
 import ImageUpload from '../../components/ImageUpload'
+
+const TiptapEditor = dynamic(() => import('@/components/editor/TiptapEditor'), { ssr: false })
 
 interface Blog {
   id: string
@@ -40,6 +43,43 @@ function slugify(text: string) {
     .trim()
 }
 
+const IconEdit = () => (
+  <svg
+    xmlns='http://www.w3.org/2000/svg'
+    className='w-4 h-4'
+    viewBox='0 0 24 24'
+    fill='none'
+    stroke='currentColor'
+    strokeWidth={2}
+  >
+    <path d='M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7' />
+    <path d='M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z' />
+  </svg>
+)
+
+const IconTrash = () => (
+  <svg
+    xmlns='http://www.w3.org/2000/svg'
+    className='w-4 h-4'
+    viewBox='0 0 24 24'
+    fill='none'
+    stroke='currentColor'
+    strokeWidth={2}
+  >
+    <polyline points='3 6 5 6 21 6' />
+    <path d='M19 6l-1 14a2 2 0 01-2 2H8a2 2 0 01-2-2L5 6' />
+    <path d='M10 11v6M14 11v6' />
+    <path d='M9 6V4a1 1 0 011-1h4a1 1 0 011 1v2' />
+  </svg>
+)
+
+const Spinner = () => (
+  <svg className='w-4 h-4 animate-spin' fill='none' viewBox='0 0 24 24'>
+    <circle className='opacity-25' cx='12' cy='12' r='10' stroke='currentColor' strokeWidth='4' />
+    <path className='opacity-75' fill='currentColor' d='M4 12a8 8 0 018-8v8z' />
+  </svg>
+)
+
 export default function BlogAdminPage() {
   const [blogs, setBlogs] = useState<Blog[]>([])
   const [loading, setLoading] = useState(true)
@@ -47,13 +87,16 @@ export default function BlogAdminPage() {
   const [editBlog, setEditBlog] = useState<BlogDetail | null>(null)
   const [form, setForm] = useState(EMPTY_FORM)
   const [saving, setSaving] = useState(false)
+  const [deletingId, setDeletingId] = useState<string | null>(null)
+  const [togglingId, setTogglingId] = useState<string | null>(null)
+  const [uploading, setUploading] = useState(false)
   const [error, setError] = useState('')
   const [fetchError, setFetchError] = useState('')
 
+  const isAnyLoading = saving || !!deletingId || !!togglingId || uploading
   const fetchData = useCallback(async () => {
     setLoading(true)
     setFetchError('')
-
     try {
       const res = await fetch('/api/blog')
       if (!res.ok) {
@@ -62,11 +105,9 @@ export default function BlogAdminPage() {
         setBlogs([])
         return
       }
-
       const data = await res.json()
       setBlogs(Array.isArray(data) ? data : [])
-    } catch (err) {
-      console.error('fetchData error:', err)
+    } catch {
       setFetchError('Không thể tải danh sách bài viết')
       setBlogs([])
     } finally {
@@ -89,11 +130,9 @@ export default function BlogAdminPage() {
     try {
       const res = await fetch(`/api/blog/${blog.id}`)
       if (!res.ok) {
-        const data = await res.json()
-        setError(data.error || 'Không thể tải chi tiết bài viết')
+        setError('Không thể tải chi tiết bài viết')
         return
       }
-
       const detail: BlogDetail = await res.json()
       setEditBlog(detail)
       setForm({
@@ -107,91 +146,82 @@ export default function BlogAdminPage() {
       })
       setError('')
       setShowModal(true)
-    } catch (err) {
-      console.error('openEdit error:', err)
+    } catch {
       setError('Không thể tải chi tiết bài viết')
     }
   }
 
   const handleDelete = async (id: string) => {
     if (!confirm('Xóa bài viết này?')) return
-
+    setDeletingId(id)
     try {
       const res = await fetch(`/api/blog/${id}`, { method: 'DELETE' })
       if (!res.ok) {
-        const data = await res.json()
-        setFetchError(data.error || 'Xóa bài viết thất bại')
+        const d = await res.json()
+        setFetchError(d.error || 'Xóa thất bại')
         return
       }
-
       fetchData()
-    } catch (err) {
-      console.error('handleDelete error:', err)
-      setFetchError('Xóa bài viết thất bại')
+    } catch {
+      setFetchError('Xóa thất bại')
+    } finally {
+      setDeletingId(null)
     }
   }
 
   const handleTogglePublish = async (blog: Blog) => {
+    setTogglingId(blog.id)
     try {
       const res = await fetch(`/api/blog/${blog.id}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ isPublished: !blog.isPublished }),
       })
-
       if (!res.ok) {
-        const data = await res.json()
-        setFetchError(data.error || 'Cập nhật trạng thái thất bại')
+        const d = await res.json()
+        setFetchError(d.error || 'Cập nhật thất bại')
         return
       }
-
       fetchData()
-    } catch (err) {
-      console.error('handleTogglePublish error:', err)
+    } catch {
       setFetchError('Cập nhật trạng thái thất bại')
+    } finally {
+      setTogglingId(null)
     }
   }
 
   const handleTitleChange = (title: string) => {
-    setForm((prev) => ({
-      ...prev,
-      title,
-      slug: prev.slug || slugify(title),
-    }))
+    setForm((prev) => ({ ...prev, title, slug: prev.slug || slugify(title) }))
   }
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setSaving(true)
     setError('')
-
     const url = editBlog ? `/api/blog/${editBlog.id}` : '/api/blog'
     const method = editBlog ? 'PUT' : 'POST'
-
-    const res = await fetch(url, {
-      method,
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(form),
-    })
-
-    setSaving(false)
-
-    if (!res.ok) {
-      const data = await res.json()
-      setError(data.error || 'Có lỗi xảy ra')
-      return
+    try {
+      const res = await fetch(url, {
+        method,
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(form),
+      })
+      if (!res.ok) {
+        const d = await res.json()
+        setError(d.error || 'Có lỗi xảy ra')
+        return
+      }
+      setShowModal(false)
+      fetchData()
+    } catch {
+      setError('Không thể kết nối server')
+    } finally {
+      setSaving(false)
     }
-
-    setShowModal(false)
-    fetchData()
   }
 
   const formatDate = (date: string) =>
-    new Date(date).toLocaleDateString('vi-VN', {
-      day: '2-digit',
-      month: '2-digit',
-      year: 'numeric',
-    })
+    new Date(date).toLocaleDateString('vi-VN', { day: '2-digit', month: '2-digit', year: 'numeric' })
 
   return (
     <div>
@@ -204,15 +234,19 @@ export default function BlogAdminPage() {
         </div>
         <button
           onClick={openCreate}
-          className='bg-amber-500 hover:bg-amber-600 text-white px-5 py-2.5 rounded-lg font-medium transition-colors flex items-center gap-2'
+          disabled={isAnyLoading}
+          className='bg-amber-500 hover:bg-amber-600 disabled:opacity-50 text-white px-5 py-2.5 rounded-lg font-medium transition-colors flex items-center gap-2'
         >
           <span>✏️</span> Viết bài mới
         </button>
       </div>
 
       {fetchError && (
-        <div className='mb-4 bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg text-sm'>
-          {fetchError}
+        <div className='mb-4 bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg text-sm flex items-center justify-between'>
+          <span>{fetchError}</span>
+          <button onClick={() => setFetchError('')} className='text-red-400 hover:text-red-600 font-bold ml-4'>
+            ×
+          </button>
         </div>
       )}
 
@@ -220,15 +254,25 @@ export default function BlogAdminPage() {
         <div className='text-center py-20 text-gray-400'>Đang tải...</div>
       ) : (
         <div className='bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden'>
-          <table className='w-full'>
+          <table className='w-full table-fixed'>
+            <colgroup>
+              {/* thumbnail */}
+              <col className='w-16' />
+              {/* title takes remaining space */}
+              <col />
+              <col className='w-36' />
+              <col className='w-28' />
+              <col className='w-32' />
+              <col className='w-24' />
+            </colgroup>
             <thead>
               <tr className='bg-gray-50 border-b border-gray-100'>
-                <th className='text-left px-6 py-3 text-xs font-semibold text-gray-500 uppercase'>Tiêu đề</th>
-                <th className='text-left px-6 py-3 text-xs font-semibold text-gray-500 uppercase'>Slug</th>
-                <th className='text-left px-6 py-3 text-xs font-semibold text-gray-500 uppercase'>Tác giả</th>
-                <th className='text-left px-6 py-3 text-xs font-semibold text-gray-500 uppercase'>Ngày tạo</th>
-                <th className='text-left px-6 py-3 text-xs font-semibold text-gray-500 uppercase'>Trạng thái</th>
-                <th className='text-right px-6 py-3 text-xs font-semibold text-gray-500 uppercase'>Thao tác</th>
+                <th className='px-4 py-3 text-xs font-semibold text-gray-500 uppercase'></th>
+                <th className='text-left px-3 py-3 text-xs font-semibold text-gray-500 uppercase'>Tiêu đề</th>
+                <th className='text-left px-3 py-3 text-xs font-semibold text-gray-500 uppercase'>Tác giả</th>
+                <th className='text-left px-3 py-3 text-xs font-semibold text-gray-500 uppercase'>Ngày tạo</th>
+                <th className='text-left px-3 py-3 text-xs font-semibold text-gray-500 uppercase'>Trạng thái</th>
+                <th className='text-center px-3 py-3 text-xs font-semibold text-gray-500 uppercase'>Thao tác</th>
               </tr>
             </thead>
             <tbody className='divide-y divide-gray-50'>
@@ -241,52 +285,52 @@ export default function BlogAdminPage() {
               ) : (
                 blogs.map((blog) => (
                   <tr key={blog.id} className='hover:bg-gray-50 transition-colors'>
-                    <td className='px-6 py-4 max-w-xs'>
-                      <div className='flex items-center gap-3'>
-                        {blog.thumbnailUrl && (
-                          <img
-                            src={blog.thumbnailUrl}
-                            alt={blog.title}
-                            className='w-10 h-10 rounded-lg object-cover flex-shrink-0'
-                          />
-                        )}
-                        <div>
-                          <p className='text-sm font-medium text-gray-900 line-clamp-1'>{blog.title}</p>
-                          <p className='text-xs text-gray-400 mt-0.5 line-clamp-1'>{blog.summary}</p>
+                    <td className='px-4 py-3'>
+                      {blog.thumbnailUrl ? (
+                        <img src={blog.thumbnailUrl} alt={blog.title} className='w-10 h-10 rounded-lg object-cover' />
+                      ) : (
+                        <div className='w-10 h-10 rounded-lg bg-gray-100 flex items-center justify-center text-gray-300 text-xs'>
+                          📄
                         </div>
-                      </div>
+                      )}
                     </td>
-                    <td className='px-6 py-4'>
-                      <code className='text-xs bg-gray-100 px-2 py-1 rounded text-gray-600'>{blog.slug}</code>
+                    <td className='px-3 py-3 min-w-0'>
+                      <p className='text-sm font-medium text-gray-900 truncate'>{blog.title}</p>
+                      <p className='text-xs text-gray-400 truncate mt-0.5'>{blog.summary}</p>
                     </td>
-                    <td className='px-6 py-4 text-sm text-gray-600'>{blog.author}</td>
-                    <td className='px-6 py-4 text-sm text-gray-500'>{formatDate(blog.createdAt)}</td>
-                    <td className='px-6 py-4'>
+                    <td className='px-3 py-3 text-sm text-gray-600 truncate'>{blog.author}</td>
+                    <td className='px-3 py-3 text-sm text-gray-500 whitespace-nowrap'>{formatDate(blog.createdAt)}</td>
+                    <td className='px-3 py-3'>
                       <button
                         onClick={() => handleTogglePublish(blog)}
-                        className={`inline-flex text-xs px-2.5 py-1 rounded-full font-medium transition-colors ${
+                        disabled={isAnyLoading}
+                        className={`inline-flex items-center gap-1 text-xs px-2.5 py-1 rounded-full font-medium transition-colors disabled:opacity-50 ${
                           blog.isPublished
                             ? 'bg-green-100 text-green-700 hover:bg-green-200'
                             : 'bg-yellow-100 text-yellow-700 hover:bg-yellow-200'
                         }`}
                       >
+                        {togglingId === blog.id ? <Spinner /> : null}
                         {blog.isPublished ? '✓ Đã đăng' : '◐ Nháp'}
                       </button>
                     </td>
-                    <td className='px-6 py-4 text-right'>
-                      <div className='flex items-center justify-end gap-2'>
+                    <td className='px-3 py-3'>
+                      <div className='flex items-center justify-center gap-1'>
                         <button
                           onClick={() => openEdit(blog)}
-                          className='text-sm text-blue-600 hover:text-blue-800 font-medium'
+                          disabled={isAnyLoading}
+                          title='Chỉnh sửa'
+                          className='p-1.5 rounded-md text-blue-500 hover:bg-blue-50 transition-colors disabled:opacity-40'
                         >
-                          Sửa
+                          <IconEdit />
                         </button>
-                        <span className='text-gray-300'>|</span>
                         <button
                           onClick={() => handleDelete(blog.id)}
-                          className='text-sm text-red-500 hover:text-red-700 font-medium'
+                          disabled={isAnyLoading}
+                          title='Xóa'
+                          className='p-1.5 rounded-md text-red-500 hover:bg-red-50 transition-colors disabled:opacity-40'
                         >
-                          Xóa
+                          {deletingId === blog.id ? <Spinner /> : <IconTrash />}
                         </button>
                       </div>
                     </td>
@@ -300,17 +344,17 @@ export default function BlogAdminPage() {
 
       {showModal && (
         <div className='fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4'>
-          <div className='bg-white rounded-2xl w-full max-w-3xl max-h-[90vh] overflow-y-auto shadow-2xl'>
-            <div className='sticky top-0 bg-white px-6 py-4 border-b border-gray-100 flex items-center justify-between'>
+          <div className='bg-white rounded-2xl w-full max-w-4xl max-h-[90vh] overflow-y-auto shadow-2xl'>
+            <div className='sticky top-0 bg-white z-10 px-6 py-4 border-b border-gray-100 flex items-center justify-between'>
               <h2 className='text-lg font-bold text-gray-900'>{editBlog ? 'Chỉnh sửa bài viết' : 'Viết bài mới'}</h2>
               <button
                 onClick={() => setShowModal(false)}
-                className='text-gray-400 hover:text-gray-600 text-2xl leading-none'
+                disabled={saving || uploading}
+                className='text-gray-400 hover:text-gray-600 text-2xl leading-none disabled:opacity-50'
               >
                 ×
               </button>
             </div>
-
             <form onSubmit={handleSubmit} className='p-6 space-y-4'>
               {error && (
                 <div className='bg-red-50 border border-red-200 text-red-600 px-4 py-3 rounded-lg text-sm'>{error}</div>
@@ -325,7 +369,8 @@ export default function BlogAdminPage() {
                   value={form.title}
                   onChange={(e) => handleTitleChange(e.target.value)}
                   required
-                  className='w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-amber-400'
+                  disabled={saving}
+                  className='w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-amber-400 disabled:bg-gray-50'
                 />
               </div>
 
@@ -338,29 +383,35 @@ export default function BlogAdminPage() {
                   value={form.slug}
                   onChange={(e) => setForm({ ...form, slug: e.target.value })}
                   required
-                  className='w-full border border-gray-300 rounded-lg px-3 py-2 text-sm font-mono focus:outline-none focus:ring-2 focus:ring-amber-400'
+                  disabled={saving}
+                  className='w-full border border-gray-300 rounded-lg px-3 py-2 text-sm font-mono focus:outline-none focus:ring-2 focus:ring-amber-400 disabled:bg-gray-50'
                 />
                 <p className='text-xs text-gray-400 mt-1'>URL: /blog/{form.slug || 'slug-bai-viet'}</p>
               </div>
 
-              <div className='grid grid-cols-2 gap-4'>
+              <div className='grid grid-cols-2 gap-4 items-start'>
                 <div>
                   <label className='block text-sm font-medium text-gray-700 mb-1'>Tác giả</label>
                   <input
                     type='text'
                     value={form.author}
                     onChange={(e) => setForm({ ...form, author: e.target.value })}
-                    className='w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-amber-400'
+                    disabled={saving}
+                    className='w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-amber-400 disabled:bg-gray-50'
                   />
                 </div>
                 <div>
                   <label className='block text-sm font-medium text-gray-700 mb-2'>Ảnh thumbnail</label>
-                  <ImageUpload
-                    images={form.thumbnailUrl ? [form.thumbnailUrl] : []}
-                    onChange={(urls) => setForm({ ...form, thumbnailUrl: urls[0] || '' })}
-                    folder='blog'
-                    single={true}
-                  />
+                  <div className='max-w-xs'>
+                    <ImageUpload
+                      images={form.thumbnailUrl ? [form.thumbnailUrl] : []}
+                      onChange={(urls) => setForm({ ...form, thumbnailUrl: urls[0] || '' })}
+                      folder='blog'
+                      single={true}
+                      onUploadStart={() => setUploading(true)}
+                      onUploadEnd={() => setUploading(false)}
+                    />
+                  </div>
                 </div>
               </div>
 
@@ -373,23 +424,20 @@ export default function BlogAdminPage() {
                   onChange={(e) => setForm({ ...form, summary: e.target.value })}
                   required
                   rows={2}
+                  disabled={saving}
                   placeholder='Tóm tắt ngắn hiển thị ở danh sách bài viết'
-                  className='w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-amber-400 resize-none'
+                  className='w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-amber-400 resize-none disabled:bg-gray-50'
                 />
               </div>
 
               <div>
-                <label className='block text-sm font-medium text-gray-700 mb-1'>
-                  Nội dung đầy đủ <span className='text-red-500'>*</span>
-                  <span className='text-gray-400 font-normal ml-1'>(hỗ trợ Markdown)</span>
+                <label className='block text-sm font-medium text-gray-700 mb-2'>
+                  Nội dung bài viết <span className='text-red-500'>*</span>
+                  <span className='text-gray-400 font-normal ml-1 text-xs'>(paste ảnh trực tiếp vào nội dung)</span>
                 </label>
-                <textarea
+                <TiptapEditor
                   value={form.content}
-                  onChange={(e) => setForm({ ...form, content: e.target.value })}
-                  required
-                  rows={10}
-                  placeholder='# Tiêu đề&#10;&#10;Nội dung bài viết...'
-                  className='w-full border border-gray-300 rounded-lg px-3 py-2 text-sm font-mono focus:outline-none focus:ring-2 focus:ring-amber-400 resize-y'
+                  onChange={(html) => setForm((prev) => ({ ...prev, content: html }))}
                 />
               </div>
 
@@ -398,6 +446,7 @@ export default function BlogAdminPage() {
                   type='checkbox'
                   id='isPublished'
                   checked={form.isPublished}
+                  disabled={saving}
                   onChange={(e) => setForm({ ...form, isPublished: e.target.checked })}
                   className='w-4 h-4 accent-amber-500'
                 />
@@ -410,15 +459,17 @@ export default function BlogAdminPage() {
                 <button
                   type='button'
                   onClick={() => setShowModal(false)}
-                  className='px-5 py-2 text-sm font-medium text-gray-600 bg-gray-100 hover:bg-gray-200 rounded-lg transition-colors'
+                  disabled={saving || uploading}
+                  className='px-5 py-2 text-sm font-medium text-gray-600 bg-gray-100 hover:bg-gray-200 disabled:opacity-50 rounded-lg transition-colors'
                 >
                   Hủy
                 </button>
                 <button
                   type='submit'
-                  disabled={saving}
-                  className='px-5 py-2 text-sm font-medium text-white bg-amber-500 hover:bg-amber-600 disabled:opacity-50 rounded-lg transition-colors'
+                  disabled={isAnyLoading}
+                  className='px-5 py-2 text-sm font-medium text-white bg-amber-500 hover:bg-amber-600 disabled:opacity-50 rounded-lg transition-colors flex items-center gap-2'
                 >
+                  {saving && <Spinner />}
                   {saving ? 'Đang lưu...' : editBlog ? 'Cập nhật' : 'Đăng bài'}
                 </button>
               </div>

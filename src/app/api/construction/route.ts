@@ -3,7 +3,6 @@ import { getServerSession } from 'next-auth'
 import { authOptions } from '@/lib/auth'
 import { prisma } from '@/lib/prisma'
 
-// GET /api/construction - Lấy danh sách
 export async function GET(request: NextRequest) {
   try {
     const { searchParams } = new URL(request.url)
@@ -21,20 +20,28 @@ export async function GET(request: NextRequest) {
   }
 }
 
-// POST /api/construction - Tạo mới
 export async function POST(request: NextRequest) {
   try {
     const session = await getServerSession(authOptions)
-    if (!session) {
-      return NextResponse.json({ error: 'Chưa đăng nhập' }, { status: 401 })
+    if (!session || session.user.role !== 'ADMIN') {
+      return NextResponse.json({ error: 'Không có quyền truy cập' }, { status: 403 })
     }
 
     const body = await request.json()
-    const { name, introduction, description, images, type, order } = body
+    const { name, introduction, description, images, type, isActive } = body
 
     if (!name || !introduction || !description || !type) {
       return NextResponse.json({ error: 'Thiếu thông tin bắt buộc' }, { status: 400 })
     }
+
+    // Tính order tiếp theo: lấy order lớn nhất trong cùng type rồi + 1
+    const lastItem = await prisma.construction.findFirst({
+      where: { type },
+      orderBy: { order: 'desc' },
+      select: { order: true },
+    })
+
+    const nextOrder = (lastItem?.order ?? 0) + 1
 
     const construction = await prisma.construction.create({
       data: {
@@ -43,7 +50,8 @@ export async function POST(request: NextRequest) {
         description,
         images: images || [],
         type,
-        order: order || 0,
+        order: nextOrder,
+        isActive: isActive ?? true,
       },
     })
 

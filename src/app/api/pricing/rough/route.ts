@@ -16,7 +16,8 @@ export async function GET() {
 export async function POST(request: NextRequest) {
   try {
     const session = await getServerSession(authOptions)
-    if (!session) return NextResponse.json({ error: 'Chưa đăng nhập' }, { status: 401 })
+    if (!session || session.user.role !== 'ADMIN')
+      return NextResponse.json({ error: 'Không có quyền truy cập' }, { status: 403 })
 
     const body = await request.json()
     const { label, price, isIncluded, note, order } = body

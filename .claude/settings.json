@@ -1,0 +1,32 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm install:*)",
+      "Read(//Users/dev24h/.npm/_logs/**)",
+      "Bash(npm --version)",
+      "Read(//opt/homebrew/Cellar/nvm/0.39.3/libexec/**)",
+      "Bash(source ~/.nvm/nvm.sh)",
+      "Bash(nvm install:*)",
+      "Bash(nvm use:*)",
+      "Bash(npx prisma:*)",
+      "Bash(node -e \"const p = require\\(''@prisma/client''\\); console.log\\(Object.keys\\(p\\).slice\\(0,10\\)\\)\")",
+      "Bash(node -e \"const {PrismaClient} = require\\(''@prisma/client''\\); console.log\\(typeof PrismaClient\\)\")",
+      "Bash(npx tsc:*)",
+      "Bash(/dev/null __NEW_LINE_abf1f18bfe60b049__ find /Users/dev24h/Desktop/NewHouse/src/app/admin -type f)",
+      "Bash(pkill -f \"next dev\")",
+      "Bash(mv home:*)",
+      "Bash(mv introduce:*)",
+      "Bash(mv service:*)",
+      "Bash(mv project:*)",
+      "Bash(mv login:*)",
+      "Bash(PGPASSWORD=newhouse psql -h localhost -U postgres -d newhouse_dev -c \"\\\\dt\")",
+      "Bash(gh pr *)",
+      "Bash(npm run *)",
+      "Bash(grep \"page.tsx$\")"
+    ],
+    "additionalDirectories": [
+      "/Users/dev24h/Desktop/NewHouse/src/app/api/auth",
+      "/Users/dev24h/Desktop/NewHouse/src/app/(landing)/blog"
+    ]
+  }
+}
