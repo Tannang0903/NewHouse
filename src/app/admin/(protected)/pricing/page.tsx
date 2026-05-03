@@ -1,115 +1,39 @@
 'use client'
 
-import { useState, useEffect, useCallback } from 'react'
+import { useState } from 'react'
+import { IconEdit, IconTrash, Spinner } from '@/components/icons'
+import {
+  useCreatePricing,
+  useDeletePricing,
+  useGetPricing,
+  useUpdatePricing,
+  type PriceItem,
+  type PricingForm,
+} from '@/hooks/pricing'
 
-interface PriceItem {
-  id: string
-  label: string
-  price: number
-  isIncluded: boolean
-  note?: string
-  order: number
-}
+const PRICE_TABS: { key: ReturnType<typeof useGetPricing>['activeTab']; label: string; icon: string; color: string }[] =
+  [
+    { key: 'design', label: 'Thiết kế', icon: '📐', color: 'bg-blue-500' },
+    { key: 'rough', label: 'Phần thô', icon: '🧱', color: 'bg-orange-500' },
+    { key: 'completed', label: 'Hoàn thiện', icon: '🏠', color: 'bg-purple-500' },
+  ]
 
-type PriceType = 'design' | 'rough' | 'completed'
-
-const PRICE_TABS: { key: PriceType; label: string; icon: string; color: string }[] = [
-  { key: 'design', label: 'Thiết kế', icon: '📐', color: 'bg-blue-500' },
-  { key: 'rough', label: 'Phần thô', icon: '🧱', color: 'bg-orange-500' },
-  { key: 'completed', label: 'Hoàn thiện', icon: '🏠', color: 'bg-purple-500' },
-]
-
-const API_MAP: Record<PriceType, string> = {
-  design: '/api/pricing/design',
-  rough: '/api/pricing/rough',
-  completed: '/api/pricing/completed',
-}
-
-const EMPTY_FORM = { label: '', price: 0, isIncluded: true, note: '', order: 0 }
-
-const Spinner = () => (
-  <svg className='w-4 h-4 animate-spin' fill='none' viewBox='0 0 24 24'>
-    <circle className='opacity-25' cx='12' cy='12' r='10' stroke='currentColor' strokeWidth='4' />
-    <path className='opacity-75' fill='currentColor' d='M4 12a8 8 0 018-8v8z' />
-  </svg>
-)
-
-const IconEdit = () => (
-  <svg
-    xmlns='http://www.w3.org/2000/svg'
-    className='w-4 h-4'
-    viewBox='0 0 24 24'
-    fill='none'
-    stroke='currentColor'
-    strokeWidth={2}
-  >
-    <path d='M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7' />
-    <path d='M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z' />
-  </svg>
-)
-
-const IconTrash = () => (
-  <svg
-    xmlns='http://www.w3.org/2000/svg'
-    className='w-4 h-4'
-    viewBox='0 0 24 24'
-    fill='none'
-    stroke='currentColor'
-    strokeWidth={2}
-  >
-    <polyline points='3 6 5 6 21 6' />
-    <path d='M19 6l-1 14a2 2 0 01-2 2H8a2 2 0 01-2-2L5 6' />
-    <path d='M10 11v6M14 11v6' />
-    <path d='M9 6V4a1 1 0 011-1h4a1 1 0 011 1v2' />
-  </svg>
-)
+const EMPTY_FORM: PricingForm = { label: '', price: 0, isIncluded: true, note: '', order: 0 }
 
 export default function PricingAdminPage() {
-  const [activeTab, setActiveTab] = useState<PriceType>('design')
-  const [items, setItems] = useState<PriceItem[]>([])
-  const [loading, setLoading] = useState(true)
+  const { activeTab, setActiveTab, items, loading, refetch } = useGetPricing()
+  const { createPricing } = useCreatePricing()
+  const { updatePricing } = useUpdatePricing()
+  const { deletePricing } = useDeletePricing()
+
   const [showModal, setShowModal] = useState(false)
   const [editItem, setEditItem] = useState<PriceItem | null>(null)
-  const [form, setForm] = useState(EMPTY_FORM)
+  const [form, setForm] = useState<PricingForm>(EMPTY_FORM)
   const [saving, setSaving] = useState(false)
   const [deletingId, setDeletingId] = useState<string | null>(null)
   const [error, setError] = useState('')
 
   const isAnyLoading = saving || !!deletingId
-
-  const fetchData = useCallback(
-    async (signal?: AbortSignal) => {
-      setLoading(true)
-      setError('')
-      try {
-        const res = await fetch(API_MAP[activeTab], { signal })
-        if (!res.ok) {
-          const data = await res.json()
-          if (!signal?.aborted) {
-            setError(data.error || 'Không thể tải dữ liệu bảng giá')
-            setItems([])
-          }
-          return
-        }
-        const data = await res.json()
-        if (!signal?.aborted) setItems(Array.isArray(data) ? data : [])
-      } catch {
-        if (!signal?.aborted) {
-          setError('Không thể tải dữ liệu bảng giá')
-          setItems([])
-        }
-      } finally {
-        if (!signal?.aborted) setLoading(false)
-      }
-    },
-    [activeTab]
-  )
-
-  useEffect(() => {
-    const controller = new AbortController()
-    fetchData(controller.signal)
-    return () => controller.abort()
-  }, [fetchData])
 
   const openCreate = () => {
     setEditItem(null)
@@ -135,15 +59,10 @@ export default function PricingAdminPage() {
     if (!confirm('Xóa hạng mục này?')) return
     setDeletingId(id)
     try {
-      const res = await fetch(`${API_MAP[activeTab]}/${id}`, { method: 'DELETE' })
-      if (!res.ok) {
-        const data = await res.json()
-        setError(data.error || 'Xóa thất bại')
-        return
-      }
-      fetchData()
-    } catch {
-      setError('Xóa thất bại')
+      await deletePricing(activeTab, id)
+      await refetch()
+    } catch (e) {
+      setError(e instanceof Error ? e.message : 'Xóa thất bại')
     } finally {
       setDeletingId(null)
     }
@@ -153,34 +72,22 @@ export default function PricingAdminPage() {
     e.preventDefault()
     setSaving(true)
     setError('')
-
-    const url = editItem ? `${API_MAP[activeTab]}/${editItem.id}` : API_MAP[activeTab]
-    const method = editItem ? 'PUT' : 'POST'
-
     try {
-      const res = await fetch(url, {
-        method,
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(form),
-      })
-
-      if (!res.ok) {
-        const data = await res.json()
-        setError(data.error || 'Có lỗi xảy ra')
-        return
+      if (editItem) {
+        await updatePricing(activeTab, editItem.id, form)
+      } else {
+        await createPricing(activeTab, form)
       }
-
       setShowModal(false)
-      fetchData()
-    } catch {
-      setError('Không thể kết nối server')
+      await refetch()
+    } catch (e) {
+      setError(e instanceof Error ? e.message : 'Không thể kết nối server')
     } finally {
       setSaving(false)
     }
   }
 
   const formatPrice = (price: number) => new Intl.NumberFormat('vi-VN').format(price) + ' đ/m²'
-
   const activeTabInfo = PRICE_TABS.find((t) => t.key === activeTab)!
 
   return (
@@ -199,7 +106,6 @@ export default function PricingAdminPage() {
         </button>
       </div>
 
-      {/* Tabs */}
       <div className='flex gap-3 mb-6'>
         {PRICE_TABS.map((tab) => (
           <button
@@ -218,7 +124,15 @@ export default function PricingAdminPage() {
         ))}
       </div>
 
-      {/* Table */}
+      {error && (
+        <div className='mb-4 bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg text-sm flex items-center justify-between'>
+          <span>{error}</span>
+          <button onClick={() => setError('')} className='text-red-400 hover:text-red-600 font-bold ml-4'>
+            ×
+          </button>
+        </div>
+      )}
+
       {loading ? (
         <div className='text-center py-20 text-gray-400'>Đang tải...</div>
       ) : (
@@ -261,9 +175,7 @@ export default function PricingAdminPage() {
                     </td>
                     <td className='px-6 py-4'>
                       <span
-                        className={`inline-flex text-xs px-2.5 py-1 rounded-full font-medium ${
-                          item.isIncluded ? 'bg-green-100 text-green-700' : 'bg-gray-100 text-gray-500'
-                        }`}
+                        className={`inline-flex text-xs px-2.5 py-1 rounded-full font-medium ${item.isIncluded ? 'bg-green-100 text-green-700' : 'bg-gray-100 text-gray-500'}`}
                       >
                         {item.isIncluded ? '✓ Có' : '✗ Không'}
                       </span>
@@ -295,7 +207,6 @@ export default function PricingAdminPage() {
             </tbody>
           </table>
 
-          {/* Summary */}
           {items.length > 0 && (
             <div className='px-6 py-3 bg-gray-50 border-t border-gray-100 flex items-center justify-between'>
               <p className='text-xs text-gray-500'>
@@ -313,7 +224,6 @@ export default function PricingAdminPage() {
         </div>
       )}
 
-      {/* Modal */}
       {showModal && (
         <div className='fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4'>
           <div className='bg-white rounded-2xl w-full max-w-lg shadow-2xl'>
@@ -365,7 +275,6 @@ export default function PricingAdminPage() {
                     className='w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-amber-400'
                   />
                 </div>
-
                 <div>
                   <label className='block text-sm font-medium text-gray-700 mb-1'>Thứ tự</label>
                   <input

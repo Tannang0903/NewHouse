@@ -2,16 +2,12 @@
 
 import React, { memo, useState, useCallback, useEffect } from 'react'
 import { createPortal } from 'react-dom'
-import { Construction } from '@/interface/construction'
 import Image from 'next/image'
-
-interface Props {
-  construction: Construction
-}
+import { CardItemProps } from '@/interface'
+import { Construction } from '@/interface/construction'
 
 const PLACEHOLDER = 'https://placehold.co/600x400/1a1a1a/ffba00?text=NewHouse'
 
-// ===== Detail Modal — render qua Portal tại document.body =====
 const DetailModal = memo(({ construction, onClose }: { construction: Construction; onClose: () => void }) => {
   const [activeIndex, setActiveIndex] = useState(0)
   const images = construction.images.length > 0 ? construction.images : [PLACEHOLDER]
@@ -38,7 +34,6 @@ const DetailModal = memo(({ construction, onClose }: { construction: Constructio
         className='relative bg-white rounded-2xl overflow-y-auto shadow-2xl flex flex-col'
         onClick={(e) => e.stopPropagation()}
       >
-        {/* Header */}
         <div className='sticky top-0 bg-white px-6 py-4 border-b border-gray-100 flex items-center justify-between z-10 flex-shrink-0'>
           <h2 className='text-lg font-bold text-gray-900 pr-4 line-clamp-1'>{construction.name}</h2>
           <button
@@ -50,14 +45,12 @@ const DetailModal = memo(({ construction, onClose }: { construction: Constructio
           </button>
         </div>
 
-        {/* Text info */}
         <div className='space-y-2'>
           <p className='text-[#FFBA00] font-semibold text-sm'>{construction.introduction}</p>
           <p className='text-gray-600 text-sm leading-relaxed'>{construction.description}</p>
         </div>
 
         <div className='p-6 space-y-5'>
-          {/* Main image */}
           <div className='relative w-full rounded-xl overflow-hidden bg-gray-100' style={{ height: '55vh' }}>
             <Image
               src={images[activeIndex]}
@@ -67,7 +60,6 @@ const DetailModal = memo(({ construction, onClose }: { construction: Constructio
               sizes='80vw'
             />
 
-            {/* Arrow buttons */}
             {images.length > 1 && (
               <>
                 <button
@@ -91,7 +83,6 @@ const DetailModal = memo(({ construction, onClose }: { construction: Constructio
             )}
           </div>
 
-          {/* Thumbnail strip — phía dưới cùng */}
           {images.length > 1 && (
             <div className='flex gap-2 overflow-x-auto pb-1 pt-2 border-t border-gray-100'>
               {images.map((img, idx) => (
@@ -117,10 +108,10 @@ const DetailModal = memo(({ construction, onClose }: { construction: Constructio
 
   return createPortal(modal, document.body)
 })
+
 DetailModal.displayName = 'DetailModal'
 
-// ===== Card Item =====
-const CardItem = memo(({ construction }: Props) => {
+const CardItem = memo(({ construction }: CardItemProps) => {
   const [isLoading, setIsLoading] = useState(true)
   const [showModal, setShowModal] = useState(false)
   const imageUrl = construction.images[0] || PLACEHOLDER
@@ -154,9 +145,7 @@ const CardItem = memo(({ construction }: Props) => {
             alt={`Hình ảnh dự án ${construction.name}`}
             fill
             sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw'
-            className={`object-cover transition-transform duration-300 group-hover:scale-105 ${
-              isLoading ? 'blur-sm' : ''
-            }`}
+            className={`object-cover transition-transform duration-300 group-hover:scale-105 ${isLoading ? 'blur-sm' : ''}`}
             priority
             onLoad={() => setIsLoading(false)}
           />
@@ -192,7 +181,6 @@ const CardItem = memo(({ construction }: Props) => {
         </div>
       </article>
 
-      {/* Modal render tại document.body qua Portal */}
       {showModal && <DetailModal construction={construction} onClose={closeModal} />}
     </>
   )

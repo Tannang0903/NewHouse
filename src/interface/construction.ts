@@ -3,8 +3,7 @@ export interface Construction {
   name: string
   introduction: string
   description: string
-  images: string[] // Array URL từ Cloudinary
-  type: 'DESIGN' | 'CONSTRUCTION' | 'INTERIOR'
+  images: string[]
   order: number
   isActive: boolean
   createdAt: string

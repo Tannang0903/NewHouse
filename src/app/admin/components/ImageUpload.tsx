@@ -1,23 +1,8 @@
 'use client'
 
 import { useState, useRef, useCallback } from 'react'
-
-interface ImageUploadProps {
-  images: string[] // Danh sách URL hiện tại
-  onChange: (urls: string[]) => void // Callback khi danh sách thay đổi
-  folder?: string // Folder trên Cloudinary
-  maxImages?: number // Số ảnh tối đa (default: 10)
-  single?: boolean // Chỉ upload 1 ảnh (dùng cho thumbnail)
-  onUploadStart?: () => void
-  onUploadEnd?: () => void
-}
-
-interface UploadingFile {
-  id: string
-  name: string
-  preview: string
-  progress: 'uploading' | 'done' | 'error'
-}
+import { useUploadFile } from '@/hooks/upload'
+import { ImageUploadProps, UploadingFile } from '@/interface'
 
 export default function ImageUpload({
   images,
@@ -31,44 +16,20 @@ export default function ImageUpload({
   const [uploading, setUploading] = useState<UploadingFile[]>([])
   const [isDragging, setIsDragging] = useState(false)
   const inputRef = useRef<HTMLInputElement>(null)
-
-  const uploadFile = useCallback(
-    async (file: File): Promise<string | null> => {
-      const formData = new FormData()
-      formData.append('file', file)
-      formData.append('folder', folder)
-
-      const res = await fetch('/api/upload', {
-        method: 'POST',
-        body: formData,
-      })
-
-      if (!res.ok) {
-        const data = await res.json()
-        throw new Error(data.error || 'Upload thất bại')
-      }
-
-      const data = await res.json()
-      return data.url
-    },
-    [folder]
-  )
+  const { uploadFile } = useUploadFile()
 
   const handleFiles = useCallback(
     async (files: FileList | null) => {
       if (!files || files.length === 0) return
 
-      // Nếu single mode, chỉ lấy file đầu tiên
       const fileArray = single ? [files[0]] : Array.from(files)
 
-      // Kiểm tra giới hạn số ảnh
       const remaining = maxImages - images.length
       if (!single && fileArray.length > remaining) {
         alert(`Chỉ có thể thêm tối đa ${remaining} ảnh nữa`)
         return
       }
 
-      // Tạo preview ngay lập tức
       const newUploading: UploadingFile[] = fileArray.map((file) => ({
         id: Math.random().toString(36).slice(2),
         name: file.name,
@@ -79,7 +40,6 @@ export default function ImageUpload({
       setUploading((prev) => [...prev, ...newUploading])
       onUploadStart?.()
 
-      // Upload từng file
       const uploadedUrls: string[] = []
 
       for (let i = 0; i < fileArray.length; i++) {
@@ -87,20 +47,16 @@ export default function ImageUpload({
         const uploadItem = newUploading[i]
 
         try {
-          const url = await uploadFile(file)
-          if (url) {
-            uploadedUrls.push(url)
-            setUploading((prev) => prev.map((u) => (u.id === uploadItem.id ? { ...u, progress: 'done' } : u)))
-          }
-        } catch (err) {
-          console.error('Upload error:', err)
+          const url = await uploadFile(file, folder)
+          uploadedUrls.push(url)
+          setUploading((prev) => prev.map((u) => (u.id === uploadItem.id ? { ...u, progress: 'done' } : u)))
+        } catch {
           setUploading((prev) => prev.map((u) => (u.id === uploadItem.id ? { ...u, progress: 'error' } : u)))
         }
       }
 
       onUploadEnd?.()
 
-      // Cập nhật danh sách URL
       if (uploadedUrls.length > 0) {
         if (single) {
           onChange(uploadedUrls)
@@ -109,7 +65,6 @@ export default function ImageUpload({
         }
       }
 
-      // Xóa uploading state sau 1.5s
       setTimeout(() => {
         setUploading((prev) => prev.filter((u) => !newUploading.find((n) => n.id === u.id)))
       }, 1500)
@@ -134,7 +89,6 @@ export default function ImageUpload({
 
   return (
     <div className='space-y-3'>
-      {/* Drop Zone */}
       {canUploadMore && (
         <div
           onDrop={handleDrop}
@@ -169,14 +123,12 @@ export default function ImageUpload({
         </div>
       )}
 
-      {/* Uploading previews */}
       {uploading.length > 0 && (
         <div className='grid grid-cols-4 gap-2'>
           {uploading.map((item) => (
             <div key={item.id} className='relative aspect-square rounded-lg overflow-hidden'>
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img src={item.preview} alt={item.name} className='w-full h-full object-cover' />
-              {/* Overlay */}
               <div className='absolute inset-0 flex items-center justify-center bg-black/40'>
                 {item.progress === 'uploading' && <div className='animate-spin text-2xl'>⏳</div>}
                 {item.progress === 'done' && <div className='text-2xl'>✅</div>}
@@ -187,19 +139,15 @@ export default function ImageUpload({
         </div>
       )}
 
-      {/* Uploaded images */}
       {images.length > 0 && (
         <div className={single ? '' : 'grid grid-cols-4 gap-2'}>
           {images.map((url, idx) => (
             <div
               key={url}
-              className={`relative group rounded-lg overflow-hidden border border-gray-200 ${
-                single ? 'aspect-video' : 'aspect-square'
-              }`}
+              className={`relative group rounded-lg overflow-hidden border border-gray-200 ${single ? 'aspect-video' : 'aspect-square'}`}
             >
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img src={url} alt={`Ảnh ${idx + 1}`} className='w-full h-full object-cover' />
-              {/* Hover overlay */}
               <div className='absolute inset-0 bg-black/0 group-hover:bg-black/50 transition-all flex items-center justify-center opacity-0 group-hover:opacity-100'>
                 <button
                   type='button'
@@ -210,7 +158,6 @@ export default function ImageUpload({
                   ×
                 </button>
               </div>
-              {/* Index badge */}
               {!single && (
                 <div className='absolute top-1 left-1 bg-black/60 text-white text-xs rounded px-1.5 py-0.5'>
                   {idx + 1}
@@ -219,7 +166,6 @@ export default function ImageUpload({
             </div>
           ))}
 
-          {/* Nút thêm ảnh (nếu chưa đủ max) */}
           {!single && images.length < maxImages && (
             <button
               type='button'
@@ -232,7 +178,6 @@ export default function ImageUpload({
         </div>
       )}
 
-      {/* Count */}
       {!single && images.length > 0 && (
         <p className='text-xs text-gray-400 text-right'>
           {images.length}/{maxImages} ảnh

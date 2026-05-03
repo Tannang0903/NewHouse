@@ -1,30 +1,14 @@
 'use client'
 
-import { memo, useState } from 'react'
+import { memo } from 'react'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import Image from 'next/image'
 import { companyStaffImage } from '@/app/api/mockData'
+import { CompanyInfoProps, ImageData, ImageSlideProps } from '@/interface'
+import { useState } from 'react'
 import 'swiper/css'
 import 'swiper/css/navigation'
 import 'swiper/css/pagination'
-import { StaticImageData } from 'next/image'
-
-interface ImageData {
-  id: string
-  image: string | StaticImageData
-  description?: string
-}
-
-interface ImageSlideProps {
-  image: string | StaticImageData
-  alt: string
-  priority: boolean
-}
-
-interface CompanyInfoProps {
-  // Ảnh đầu tiên của từng công trình thiết kế từ DB
-  designImages: string[]
-}
 
 const ImageSlide = memo(({ image, alt, priority }: ImageSlideProps) => {
   const [isLoading, setIsLoading] = useState(true)
@@ -35,9 +19,7 @@ const ImageSlide = memo(({ image, alt, priority }: ImageSlideProps) => {
         src={image}
         alt={alt}
         fill
-        className={`xl:object-contain lg:object-contain object-cover transition-opacity duration-300 ${
-          isLoading ? 'opacity-0' : 'opacity-100'
-        }`}
+        className={`xl:object-contain lg:object-contain object-cover transition-opacity duration-300 ${isLoading ? 'opacity-0' : 'opacity-100'}`}
         priority={priority}
         onLoadingComplete={() => setIsLoading(false)}
       />
@@ -71,7 +53,6 @@ const CompanyInfoBox = memo(() => (
 const PLACEHOLDER = 'https://placehold.co/1200x800/1a1a1a/ffba00?text=NewHouse'
 
 const CompanyInfo = ({ designImages }: CompanyInfoProps) => {
-  // Dùng ảnh từ DB, fallback về placeholder nếu chưa có data
   const slides =
     designImages.length > 0
       ? designImages.map((url, i) => ({ id: String(i), image: url }))

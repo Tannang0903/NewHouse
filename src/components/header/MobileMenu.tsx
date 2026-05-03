@@ -4,11 +4,7 @@ import Link from 'next/link'
 import classNames from 'classnames'
 import { useState } from 'react'
 import { routes } from '@/constants/routes'
-
-interface MobileMenuProps {
-  isOpen: boolean
-  onClose: () => void
-}
+import { MobileMenuProps } from '@/interface'
 
 const MobileMenu = ({ isOpen, onClose }: MobileMenuProps) => {
   const [isServiceDropdownOpen, setIsServiceDropdownOpen] = useState(false)

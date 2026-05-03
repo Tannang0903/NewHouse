@@ -1,11 +1,6 @@
-'use client'
-
-import Image, { ImageProps, StaticImageData } from 'next/image'
+import Image from 'next/image'
 import { memo } from 'react'
-
-interface NextImageProps extends Omit<ImageProps, 'src'> {
-  src: string | StaticImageData
-}
+import { NextImageProps } from '@/interface'
 
 const NextImage = ({ src, alt, ...props }: NextImageProps) => {
   return <Image src={src} alt={alt} {...props} />

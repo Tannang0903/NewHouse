@@ -1,8 +1,5 @@
+import { BlogContentProps } from '@/interface'
 import DOMPurify from 'isomorphic-dompurify'
-
-interface Props {
-  html: string
-}
 
 const ALLOWED_TAGS = [
   'p',
@@ -30,7 +27,7 @@ const ALLOWED_TAGS = [
 
 const ALLOWED_ATTR = ['href', 'src', 'alt', 'target', 'rel', 'width', 'height', 'class']
 
-export default function BlogContent({ html }: Props) {
+export default function BlogContent({ html }: BlogContentProps) {
   const clean = DOMPurify.sanitize(html, {
     ALLOWED_TAGS,
     ALLOWED_ATTR,

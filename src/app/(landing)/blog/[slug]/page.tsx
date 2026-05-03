@@ -4,14 +4,11 @@ import Link from 'next/link'
 import { getBlogBySlug } from '@/lib/api'
 import BlogContent from '@/components/editor/BlogContent'
 import { routes } from '@/constants/routes'
+import { BlogPageProps } from '@/interface'
 
 export const dynamic = 'force-dynamic'
 
-interface Props {
-  params: { slug: string }
-}
-
-export default async function BlogPostPage({ params }: Props) {
+export default async function BlogPostPage({ params }: BlogPageProps) {
   const blog = await getBlogBySlug(params.slug)
 
   if (!blog) notFound()

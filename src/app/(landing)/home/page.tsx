@@ -1,18 +1,17 @@
 import React from 'react'
 import CompanyInfo from './component/company-info'
 import ConstructionSlider from './component/construction-slider'
-import { getConstructions } from '@/lib/api'
+import { getConstructionWorks, getDesignWorks, getInteriorWorks } from '@/lib/api'
 
 export const dynamic = 'force-dynamic'
 
 export default async function HomePage() {
   const [designWorks, constructionWorks, interiorWorks] = await Promise.all([
-    getConstructions('DESIGN'),
-    getConstructions('CONSTRUCTION'),
-    getConstructions('INTERIOR'),
+    getDesignWorks(),
+    getConstructionWorks(),
+    getInteriorWorks(),
   ])
 
-  // Lấy ảnh đầu tiên của từng công trình thiết kế cho slider banner
   const designImages = designWorks.map((w) => w.images[0]).filter(Boolean) as string[]
 
   return (

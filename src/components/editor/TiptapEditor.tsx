@@ -7,11 +7,9 @@ import Image from '@tiptap/extension-image'
 import Link from '@tiptap/extension-link'
 import Placeholder from '@tiptap/extension-placeholder'
 import Underline from '@tiptap/extension-underline'
-
-interface Props {
-  value: string
-  onChange: (html: string) => void
-}
+import { Spinner } from '@/components/icons'
+import { useUploadFile } from '@/hooks/upload'
+import { TiptapEditorProps } from '@/interface'
 
 function ToolbarButton({
   active,
@@ -50,11 +48,11 @@ function Divider() {
   return <div className='w-px h-6 bg-gray-300 mx-1' />
 }
 
-export default function TiptapEditor({ value, onChange }: Props) {
+export default function TiptapEditor({ value, onChange }: TiptapEditorProps) {
   const [uploadError, setUploadError] = useState('')
   const [uploading, setUploading] = useState(false)
-
   const [, setTick] = useState(0)
+  const { uploadFile } = useUploadFile()
 
   const editor = useEditor({
     immediatelyRender: false,
@@ -73,13 +71,10 @@ export default function TiptapEditor({ value, onChange }: Props) {
       setTick((t) => t + 1)
     },
     editorProps: {
-      attributes: {
-        class: 'focus:outline-none',
-      },
+      attributes: { class: 'focus:outline-none' },
       handlePaste(view, event) {
         const items = Array.from(event.clipboardData?.items || [])
         const imageItem = items.find((item) => item.type.startsWith('image/'))
-
         if (!imageItem) return false
 
         const file = imageItem.getAsFile()
@@ -89,21 +84,10 @@ export default function TiptapEditor({ value, onChange }: Props) {
         setUploadError('')
         setUploading(true)
 
-        const formData = new FormData()
-        formData.append('file', file)
-        formData.append('folder', 'blog')
-
-        fetch('/api/upload', { method: 'POST', body: formData })
-          .then(async (res) => {
-            if (!res.ok) {
-              const data = await res.json()
-              throw new Error(data.error || 'Upload thất bại')
-            }
-            return res.json()
-          })
-          .then((data) => {
+        uploadFile(file, 'blog')
+          .then((url) => {
             const { from } = view.state.selection
-            editor?.chain().focus().setTextSelection(from).setImage({ src: data.url }).run()
+            editor?.chain().focus().setTextSelection(from).setImage({ src: url }).run()
             setUploading(false)
           })
           .catch((err) => {
@@ -127,7 +111,6 @@ export default function TiptapEditor({ value, onChange }: Props) {
 
   return (
     <div className='border border-gray-300 rounded-xl overflow-hidden bg-white shadow-sm'>
-      {/* Toolbar */}
       <div className='border-b border-gray-200 bg-gray-50 px-3 py-2 flex flex-wrap items-center gap-1'>
         <ToolbarButton
           active={editor.isActive('heading', { level: 1 })}
@@ -222,7 +205,6 @@ export default function TiptapEditor({ value, onChange }: Props) {
           ↪
         </ToolbarButton>
 
-        {/* Active format indicator */}
         <div className='ml-auto flex items-center gap-1 text-xs text-gray-400'>
           {editor.isActive('bold') && <span className='font-bold text-amber-600'>B</span>}
           {editor.isActive('italic') && <span className='italic text-amber-600'>I</span>}
@@ -236,19 +218,14 @@ export default function TiptapEditor({ value, onChange }: Props) {
           {editor.isActive('blockquote') && <span className='text-amber-600 italic'>"Quote"</span>}
         </div>
 
-        {/* Upload status */}
         {uploading && (
           <span className='ml-auto text-xs text-amber-600 flex items-center gap-1'>
-            <svg className='animate-spin h-3 w-3' fill='none' viewBox='0 0 24 24'>
-              <circle className='opacity-25' cx='12' cy='12' r='10' stroke='currentColor' strokeWidth='4' />
-              <path className='opacity-75' fill='currentColor' d='M4 12a8 8 0 018-8v8z' />
-            </svg>
+            <Spinner className='animate-spin h-3 w-3' />
             Đang tải ảnh lên...
           </span>
         )}
       </div>
 
-      {/* Upload error banner */}
       {uploadError && (
         <div className='bg-red-50 border-b border-red-200 text-red-600 px-4 py-2 text-xs flex items-center justify-between'>
           <span>⚠️ {uploadError}</span>
@@ -262,7 +239,6 @@ export default function TiptapEditor({ value, onChange }: Props) {
         </div>
       )}
 
-      {/* Editor area */}
       <EditorContent
         editor={editor}
         className='

@@ -1,6 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -8,8 +5,6 @@ generator client {
 datasource db {
   provider = "postgresql"
 }
-
-// ==================== AUTH ====================
 
 enum Role {
   ADMIN
@@ -26,28 +21,42 @@ model User {
   updatedAt DateTime @updatedAt
 }
 
-// ==================== CONSTRUCTION ====================
-
-enum ConstructionType {
-  DESIGN       // Cong trinh thiet ke
-  CONSTRUCTION // Cong trinh thi cong
-  INTERIOR     // Noi that
-}
-
-model Construction {
-  id           String           @id @default(cuid())
+// ==================== DESIGN / CONSTRUCTION WORK / INTERIOR ====================
+model Design {
+  id           String   @id @default(cuid())
   name         String
   introduction String
-  description  String           @db.Text
-  images       String[]         // Array URL anh
-  type         ConstructionType
-  order        Int              @default(0)
-  isActive     Boolean          @default(true)
-  createdAt    DateTime         @default(now())
-  updatedAt    DateTime         @updatedAt
+  description  String   @db.Text
+  images       String[]
+  order        Int      @default(0)
+  isActive     Boolean  @default(true)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
 }
 
-// ==================== PRICING ====================
+model ConstructionWork {
+  id           String   @id @default(cuid())
+  name         String
+  introduction String
+  description  String   @db.Text
+  images       String[]
+  order        Int      @default(0)
+  isActive     Boolean  @default(true)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+model Interior {
+  id           String   @id @default(cuid())
+  name         String
+  introduction String
+  description  String   @db.Text
+  images       String[]
+  order        Int      @default(0)
+  isActive     Boolean  @default(true)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
 
 model DesignPrice {
   id         String  @id @default(cuid())
@@ -75,8 +84,6 @@ model CompletedPrice {
   note       String? @db.Text
   order      Int     @default(0)
 }
-
-// ==================== BLOG ====================
 
 model Blog {
   id           String   @id @default(cuid())

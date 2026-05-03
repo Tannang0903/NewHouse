@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import { IconMenu } from '@/components/icons'
 import AdminSidebar from '../components/AdminSidebar'
 
 export default function AdminShell({ children }: { children: React.ReactNode }) {
@@ -23,16 +24,7 @@ export default function AdminShell({ children }: { children: React.ReactNode }) 
             className='p-2 rounded-lg text-gray-600 hover:bg-gray-200 transition-colors'
             aria-label='Mở menu'
           >
-            <svg
-              xmlns='http://www.w3.org/2000/svg'
-              fill='none'
-              viewBox='0 0 24 24'
-              strokeWidth={1.5}
-              stroke='currentColor'
-              className='w-6 h-6'
-            >
-              <path strokeLinecap='round' strokeLinejoin='round' d='M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5' />
-            </svg>
+            <IconMenu className='w-6 h-6' />
           </button>
           <span className='ml-3 text-lg font-bold text-amber-500'>NewHouse Admin</span>
         </div>

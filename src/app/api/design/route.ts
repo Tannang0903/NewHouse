@@ -3,19 +3,15 @@ import { getServerSession } from 'next-auth'
 import { authOptions } from '@/lib/auth'
 import { prisma } from '@/lib/prisma'
 
-export async function GET(request: NextRequest) {
+export async function GET() {
   try {
-    const { searchParams } = new URL(request.url)
-    const type = searchParams.get('type')
-
-    const constructions = await prisma.construction.findMany({
-      where: type ? { type: type as 'DESIGN' | 'CONSTRUCTION' | 'INTERIOR' } : undefined,
+    const items = await prisma.design.findMany({
       orderBy: [{ order: 'asc' }, { createdAt: 'desc' }],
     })
 
-    return NextResponse.json(constructions)
+    return NextResponse.json(items)
   } catch (error) {
-    console.error('GET /api/construction error:', error)
+    console.error('GET /api/design error:', error)
     return NextResponse.json({ error: 'Lỗi server' }, { status: 500 })
   }
 }
@@ -28,36 +24,33 @@ export async function POST(request: NextRequest) {
     }
 
     const body = await request.json()
-    const { name, introduction, description, images, type, isActive } = body
+    const { name, introduction, description, images, isActive } = body
 
-    if (!name || !introduction || !description || !type) {
+    if (!name || !introduction || !description) {
       return NextResponse.json({ error: 'Thiếu thông tin bắt buộc' }, { status: 400 })
     }
 
-    // Tính order tiếp theo: lấy order lớn nhất trong cùng type rồi + 1
-    const lastItem = await prisma.construction.findFirst({
-      where: { type },
+    const lastItem = await prisma.design.findFirst({
       orderBy: { order: 'desc' },
       select: { order: true },
     })
 
     const nextOrder = (lastItem?.order ?? 0) + 1
 
-    const construction = await prisma.construction.create({
+    const item = await prisma.design.create({
       data: {
         name,
         introduction,
         description,
         images: images || [],
-        type,
         order: nextOrder,
         isActive: isActive ?? true,
       },
     })
 
-    return NextResponse.json(construction, { status: 201 })
+    return NextResponse.json(item, { status: 201 })
   } catch (error) {
-    console.error('POST /api/construction error:', error)
+    console.error('POST /api/design error:', error)
     return NextResponse.json({ error: 'Lỗi server' }, { status: 500 })
   }
 }

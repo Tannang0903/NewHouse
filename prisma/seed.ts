@@ -59,10 +59,10 @@ async function main() {
   ]
 
   for (const item of designItems) {
-    await prisma.construction.create({ data: item })
+    const { type: _type, ...rest } = item
+    await prisma.design.create({ data: rest })
   }
 
-  // ==================== CONSTRUCTION - CONSTRUCTION ====================
   const constructionItems = [
     {
       name: 'Công Trình Thi Công Nhà Mái Thái 2 Tầng Tại Đà Nẵng',
@@ -70,7 +70,6 @@ async function main() {
       description:
         'Ngôi nhà được thi công theo kiểu mái Thái 2 tầng truyền thống với hai mái đối xứng và phần ban công rộng rãi phía trước.',
       images: [],
-      type: 'CONSTRUCTION' as const,
       order: 1,
     },
     {
@@ -79,13 +78,12 @@ async function main() {
       description:
         'Ngôi nhà phố 2 tầng được thi công với thiết kế hiện đại, kết hợp hài hòa giữa đường cong kiến trúc và chất liệu gạch thẻ truyền thống.',
       images: [],
-      type: 'CONSTRUCTION' as const,
       order: 2,
     },
   ]
 
   for (const item of constructionItems) {
-    await prisma.construction.create({ data: item })
+    await prisma.constructionWork.create({ data: item })
   }
 
   // ==================== DESIGN PRICE ====================

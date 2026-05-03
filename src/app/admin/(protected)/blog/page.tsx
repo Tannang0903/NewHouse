@@ -1,28 +1,24 @@
 'use client'
 
-import { useState, useEffect, useCallback } from 'react'
+import { useState } from 'react'
 import dynamic from 'next/dynamic'
 import ImageUpload from '../../components/ImageUpload'
+import { IconEdit, IconTrash, Spinner } from '@/components/icons'
+import {
+  useCreateBlog,
+  useDeleteBlog,
+  useGetBlog,
+  useGetBlogDetail,
+  useToggleBlogPublish,
+  useUpdateBlog,
+  type Blog,
+  type BlogDetail,
+  type BlogForm,
+} from '@/hooks/blog'
 
 const TiptapEditor = dynamic(() => import('@/components/editor/TiptapEditor'), { ssr: false })
 
-interface Blog {
-  id: string
-  slug: string
-  title: string
-  summary: string
-  thumbnailUrl?: string
-  author: string
-  isPublished: boolean
-  createdAt: string
-  updatedAt: string
-}
-
-interface BlogDetail extends Blog {
-  content: string
-}
-
-const EMPTY_FORM = {
+const EMPTY_FORM: BlogForm = {
   slug: '',
   title: '',
   summary: '',
@@ -43,81 +39,24 @@ function slugify(text: string) {
     .trim()
 }
 
-const IconEdit = () => (
-  <svg
-    xmlns='http://www.w3.org/2000/svg'
-    className='w-4 h-4'
-    viewBox='0 0 24 24'
-    fill='none'
-    stroke='currentColor'
-    strokeWidth={2}
-  >
-    <path d='M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7' />
-    <path d='M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z' />
-  </svg>
-)
-
-const IconTrash = () => (
-  <svg
-    xmlns='http://www.w3.org/2000/svg'
-    className='w-4 h-4'
-    viewBox='0 0 24 24'
-    fill='none'
-    stroke='currentColor'
-    strokeWidth={2}
-  >
-    <polyline points='3 6 5 6 21 6' />
-    <path d='M19 6l-1 14a2 2 0 01-2 2H8a2 2 0 01-2-2L5 6' />
-    <path d='M10 11v6M14 11v6' />
-    <path d='M9 6V4a1 1 0 011-1h4a1 1 0 011 1v2' />
-  </svg>
-)
-
-const Spinner = () => (
-  <svg className='w-4 h-4 animate-spin' fill='none' viewBox='0 0 24 24'>
-    <circle className='opacity-25' cx='12' cy='12' r='10' stroke='currentColor' strokeWidth='4' />
-    <path className='opacity-75' fill='currentColor' d='M4 12a8 8 0 018-8v8z' />
-  </svg>
-)
-
 export default function BlogAdminPage() {
-  const [blogs, setBlogs] = useState<Blog[]>([])
-  const [loading, setLoading] = useState(true)
+  const { blogs, loading, fetchError, setFetchError, refetch } = useGetBlog()
+  const { getBlogDetail } = useGetBlogDetail()
+  const { createBlog } = useCreateBlog()
+  const { updateBlog } = useUpdateBlog()
+  const { deleteBlog } = useDeleteBlog()
+  const { togglePublish } = useToggleBlogPublish()
+
   const [showModal, setShowModal] = useState(false)
   const [editBlog, setEditBlog] = useState<BlogDetail | null>(null)
-  const [form, setForm] = useState(EMPTY_FORM)
+  const [form, setForm] = useState<BlogForm>(EMPTY_FORM)
   const [saving, setSaving] = useState(false)
   const [deletingId, setDeletingId] = useState<string | null>(null)
   const [togglingId, setTogglingId] = useState<string | null>(null)
   const [uploading, setUploading] = useState(false)
   const [error, setError] = useState('')
-  const [fetchError, setFetchError] = useState('')
 
   const isAnyLoading = saving || !!deletingId || !!togglingId || uploading
-  const fetchData = useCallback(async () => {
-    setLoading(true)
-    setFetchError('')
-    try {
-      const res = await fetch('/api/blog')
-      if (!res.ok) {
-        const data = await res.json()
-        setFetchError(data.error || 'Không thể tải danh sách bài viết')
-        setBlogs([])
-        return
-      }
-      const data = await res.json()
-      setBlogs(Array.isArray(data) ? data : [])
-    } catch {
-      setFetchError('Không thể tải danh sách bài viết')
-      setBlogs([])
-    } finally {
-      setLoading(false)
-    }
-  }, [])
-
-  useEffect(() => {
-    fetchData()
-  }, [fetchData])
 
   const openCreate = () => {
     setEditBlog(null)
@@ -128,12 +67,7 @@ export default function BlogAdminPage() {
 
   const openEdit = async (blog: Blog) => {
     try {
-      const res = await fetch(`/api/blog/${blog.id}`)
-      if (!res.ok) {
-        setError('Không thể tải chi tiết bài viết')
-        return
-      }
-      const detail: BlogDetail = await res.json()
+      const detail = await getBlogDetail(blog.id)
       setEditBlog(detail)
       setForm({
         slug: detail.slug,
@@ -155,15 +89,10 @@ export default function BlogAdminPage() {
     if (!confirm('Xóa bài viết này?')) return
     setDeletingId(id)
     try {
-      const res = await fetch(`/api/blog/${id}`, { method: 'DELETE' })
-      if (!res.ok) {
-        const d = await res.json()
-        setFetchError(d.error || 'Xóa thất bại')
-        return
-      }
-      fetchData()
-    } catch {
-      setFetchError('Xóa thất bại')
+      await deleteBlog(id)
+      await refetch()
+    } catch (e) {
+      setFetchError(e instanceof Error ? e.message : 'Xóa thất bại')
     } finally {
       setDeletingId(null)
     }
@@ -172,19 +101,10 @@ export default function BlogAdminPage() {
   const handleTogglePublish = async (blog: Blog) => {
     setTogglingId(blog.id)
     try {
-      const res = await fetch(`/api/blog/${blog.id}`, {
-        method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ isPublished: !blog.isPublished }),
-      })
-      if (!res.ok) {
-        const d = await res.json()
-        setFetchError(d.error || 'Cập nhật thất bại')
-        return
-      }
-      fetchData()
-    } catch {
-      setFetchError('Cập nhật trạng thái thất bại')
+      await togglePublish(blog)
+      await refetch()
+    } catch (e) {
+      setFetchError(e instanceof Error ? e.message : 'Cập nhật trạng thái thất bại')
     } finally {
       setTogglingId(null)
     }
@@ -198,23 +118,16 @@ export default function BlogAdminPage() {
     e.preventDefault()
     setSaving(true)
     setError('')
-    const url = editBlog ? `/api/blog/${editBlog.id}` : '/api/blog'
-    const method = editBlog ? 'PUT' : 'POST'
     try {
-      const res = await fetch(url, {
-        method,
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(form),
-      })
-      if (!res.ok) {
-        const d = await res.json()
-        setError(d.error || 'Có lỗi xảy ra')
-        return
+      if (editBlog) {
+        await updateBlog(editBlog.id, form)
+      } else {
+        await createBlog(form)
       }
       setShowModal(false)
-      fetchData()
-    } catch {
-      setError('Không thể kết nối server')
+      await refetch()
+    } catch (e) {
+      setError(e instanceof Error ? e.message : 'Không thể kết nối server')
     } finally {
       setSaving(false)
     }
@@ -256,9 +169,7 @@ export default function BlogAdminPage() {
         <div className='bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden'>
           <table className='w-full table-fixed'>
             <colgroup>
-              {/* thumbnail */}
               <col className='w-16' />
-              {/* title takes remaining space */}
               <col />
               <col className='w-36' />
               <col className='w-28' />
@@ -304,11 +215,7 @@ export default function BlogAdminPage() {
                       <button
                         onClick={() => handleTogglePublish(blog)}
                         disabled={isAnyLoading}
-                        className={`inline-flex items-center gap-1 text-xs px-2.5 py-1 rounded-full font-medium transition-colors disabled:opacity-50 ${
-                          blog.isPublished
-                            ? 'bg-green-100 text-green-700 hover:bg-green-200'
-                            : 'bg-yellow-100 text-yellow-700 hover:bg-yellow-200'
-                        }`}
+                        className={`inline-flex items-center gap-1 text-xs px-2.5 py-1 rounded-full font-medium transition-colors disabled:opacity-50 ${blog.isPublished ? 'bg-green-100 text-green-700 hover:bg-green-200' : 'bg-yellow-100 text-yellow-700 hover:bg-yellow-200'}`}
                       >
                         {togglingId === blog.id ? <Spinner /> : null}
                         {blog.isPublished ? '✓ Đã đăng' : '◐ Nháp'}

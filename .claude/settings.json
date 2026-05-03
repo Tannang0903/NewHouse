@@ -22,11 +22,16 @@
       "Bash(PGPASSWORD=newhouse psql -h localhost -U postgres -d newhouse_dev -c \"\\\\dt\")",
       "Bash(gh pr *)",
       "Bash(npm run *)",
-      "Bash(grep \"page.tsx$\")"
+      "Bash(grep \"page.tsx$\")",
+      "Bash(grep \"^ws$\")",
+      "Bash(curl -s -X POST http://localhost:3000/api/admin/migrate-construction-runtime)",
+      "Bash(curl -s -X POST http://localhost:3001/api/admin/migrate-construction-runtime)",
+      "Bash(export DATABASE_URL=\"postgresql://postgres:newhouse@localhost:5432/newhouse_dev?schema=public\")"
     ],
     "additionalDirectories": [
       "/Users/dev24h/Desktop/NewHouse/src/app/api/auth",
-      "/Users/dev24h/Desktop/NewHouse/src/app/(landing)/blog"
+      "/Users/dev24h/Desktop/NewHouse/src/app/(landing)/blog",
+      "/Users/dev24h/Desktop/NewHouse/.claude"
     ]
   }
 }

@@ -1,16 +1,27 @@
 import { prisma } from '@/lib/prisma'
-import Link from 'next/link'
 
 async function getStats() {
-  const [constructions, designPrices, roughPrices, completedPrices, blogs] = await Promise.all([
-    prisma.construction.count(),
-    prisma.designPrice.count(),
-    prisma.roughLaborPrice.count(),
-    prisma.completedPrice.count(),
-    prisma.blog.count(),
-  ])
+  const [designCount, constructionWorkCount, interiorCount, designPrices, roughPrices, completedPrices, blogs] =
+    await Promise.all([
+      prisma.design.count(),
+      prisma.constructionWork.count(),
+      prisma.interior.count(),
+      prisma.designPrice.count(),
+      prisma.roughLaborPrice.count(),
+      prisma.completedPrice.count(),
+      prisma.blog.count(),
+    ])
   const publishedBlogs = await prisma.blog.count({ where: { isPublished: true } })
-  return { constructions, designPrices, roughPrices, completedPrices, blogs, publishedBlogs }
+  return {
+    designCount,
+    constructionWorkCount,
+    interiorCount,
+    designPrices,
+    roughPrices,
+    completedPrices,
+    blogs,
+    publishedBlogs,
+  }
 }
 
 export default async function AdminDashboard() {
@@ -18,12 +29,28 @@ export default async function AdminDashboard() {
 
   const cards = [
     {
-      title: 'Công trình',
-      value: stats.constructions,
-      desc: 'thiết kế + thi công',
-      href: '/admin/construction',
+      title: 'Thiết kế',
+      value: stats.designCount,
+      desc: 'công trình',
+      href: '/admin/design',
       color: 'bg-blue-500',
+      icon: '🎨',
+    },
+    {
+      title: 'Thi công',
+      value: stats.constructionWorkCount,
+      desc: 'công trình',
+      href: '/admin/construction-work',
+      color: 'bg-sky-500',
       icon: '🏗️',
+    },
+    {
+      title: 'Nội thất',
+      value: stats.interiorCount,
+      desc: 'công trình',
+      href: '/admin/interior',
+      color: 'bg-indigo-500',
+      icon: '🛋️',
     },
     {
       title: 'Bảng giá thiết kế',
@@ -68,7 +95,7 @@ export default async function AdminDashboard() {
 
       <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6'>
         {cards.map((card) => (
-          <Link
+          <a
             key={card.title}
             href={card.href}
             className='bg-white rounded-2xl shadow-sm border border-gray-100 p-6 hover:shadow-md transition-shadow group'
@@ -85,36 +112,35 @@ export default async function AdminDashboard() {
                 {card.icon}
               </div>
             </div>
-          </Link>
+          </a>
         ))}
       </div>
 
-      {/* Quick links */}
       <div className='mt-10'>
         <h2 className='text-lg font-semibold text-gray-800 mb-4'>Truy cập nhanh</h2>
         <div className='grid grid-cols-1 sm:grid-cols-3 gap-4'>
-          <Link
-            href='/admin/construction'
+          <a
+            href='/admin/design'
             className='bg-white border border-dashed border-gray-300 rounded-xl p-5 text-center hover:border-amber-400 hover:bg-amber-50 transition-colors'
           >
             <div className='text-2xl mb-2'>➕</div>
-            <p className='text-sm font-medium text-gray-700'>Thêm công trình mới</p>
-          </Link>
-          <Link
+            <p className='text-sm font-medium text-gray-700'>Thêm thiết kế mới</p>
+          </a>
+          <a
             href='/admin/blog'
             className='bg-white border border-dashed border-gray-300 rounded-xl p-5 text-center hover:border-amber-400 hover:bg-amber-50 transition-colors'
           >
             <div className='text-2xl mb-2'>✏️</div>
             <p className='text-sm font-medium text-gray-700'>Viết bài blog mới</p>
-          </Link>
-          <Link
+          </a>
+          <a
             href='/'
             target='_blank'
             className='bg-white border border-dashed border-gray-300 rounded-xl p-5 text-center hover:border-amber-400 hover:bg-amber-50 transition-colors'
           >
             <div className='text-2xl mb-2'>🌐</div>
             <p className='text-sm font-medium text-gray-700'>Xem Landing Page</p>
-          </Link>
+          </a>
         </div>
       </div>
     </div>

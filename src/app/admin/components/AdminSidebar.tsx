@@ -3,18 +3,16 @@
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { signOut } from 'next-auth/react'
+import { AdminSidebarProps } from '@/interface'
 
 const navItems = [
-  { label: 'Dashboard', href: '/admin', icon: '📊' },
-  { label: 'Công trình', href: '/admin/construction', icon: '🏗️' },
+  { label: 'Dashboard', href: '/admin', icon: '📊', exact: true },
+  { label: 'Thiết kế', href: '/admin/design', icon: '🎨' },
+  { label: 'Thi công', href: '/admin/construction-work', icon: '🏗️' },
+  { label: 'Nội thất', href: '/admin/interior', icon: '🛋️' },
   { label: 'Bảng giá', href: '/admin/pricing', icon: '💰' },
   { label: 'Blog', href: '/admin/blog', icon: '📝' },
 ]
-
-interface AdminSidebarProps {
-  open: boolean
-  onClose: () => void
-}
 
 export default function AdminSidebar({ open, onClose }: AdminSidebarProps) {
   const pathname = usePathname()
@@ -41,7 +39,7 @@ export default function AdminSidebar({ open, onClose }: AdminSidebarProps) {
 
       <nav className='flex-1 px-4 py-6 space-y-1'>
         {navItems.map((item) => {
-          const isActive = item.href === '/admin' ? pathname === '/admin' : pathname.startsWith(item.href)
+          const isActive = item.exact ? pathname === item.href : pathname.startsWith(item.href)
           return (
             <Link
               key={item.href}

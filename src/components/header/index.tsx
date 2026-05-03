@@ -7,6 +7,7 @@ import NextImage from '../common/NextImage'
 import logo from '@/assets/image/logo.png'
 import DesktopMenu from './DesktopMenu'
 import MobileMenu from './MobileMenu'
+import { IconHamburger } from '@/components/icons'
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false)
@@ -28,17 +29,7 @@ const Header = () => {
               className='text-[2.8rem] transition-all hover:text-[#cca539] xl:hidden lg:hidden md:hidden p-4 rounded-[6px] hover:bg-[#cca539]/10'
               onClick={() => setIsMenuOpen(!isMenuOpen)}
             >
-              <svg
-                xmlns='http://www.w3.org/2000/svg'
-                className='lg:w-8 lg:h-8 w-6 h-6'
-                viewBox='0 0 24 24'
-                fill='none'
-                stroke='currentColor'
-              >
-                <path d='M4 6l16 0'></path>
-                <path d='M4 12l16 0'></path>
-                <path d='M4 18l16 0'></path>
-              </svg>
+              <IconHamburger className='lg:w-8 lg:h-8 w-6 h-6' />
             </button>
           </div>
         </header>
